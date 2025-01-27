@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using Reflectis.CreatorKit.Worlds.PlaceholdersEditor;
+using Reflectis.CreatorKit.Worlds.Placeholders.Editor;
 
 using UnityEditor;
 
