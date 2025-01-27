@@ -1,4 +1,4 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting.ClientModels;
+using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 
 using Unity.VisualScripting;
 

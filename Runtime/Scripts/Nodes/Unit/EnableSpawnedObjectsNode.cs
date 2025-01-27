@@ -1,4 +1,4 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting.SceneHierarchy;
+using Reflectis.CreatorKit.Worlds.Core.SceneHierarchy;
 using Reflectis.SDK.Core;
 
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting;
+using Reflectis.CreatorKit.Worlds.Core;
 
 using Unity.VisualScripting;
 

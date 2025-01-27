@@ -1,5 +1,5 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting;
-using Reflectis.CreatorKit.Worlds.VisualScripting.ClientModels;
+using Reflectis.CreatorKit.Worlds.Core;
+using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Core.VisualScripting;
 

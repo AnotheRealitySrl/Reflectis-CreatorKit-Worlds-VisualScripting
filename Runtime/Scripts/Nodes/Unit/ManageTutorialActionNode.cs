@@ -1,4 +1,4 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting.Help;
+using Reflectis.CreatorKit.Worlds.Core.Help;
 using Reflectis.SDK.Core;
 
 using System.Collections;

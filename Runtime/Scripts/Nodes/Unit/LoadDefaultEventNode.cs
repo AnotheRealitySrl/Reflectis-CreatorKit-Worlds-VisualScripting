@@ -1,4 +1,4 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting;
+using Reflectis.CreatorKit.Worlds.Core;
 using Reflectis.SDK.Core.VisualScripting;
 
 using System.Threading.Tasks;
