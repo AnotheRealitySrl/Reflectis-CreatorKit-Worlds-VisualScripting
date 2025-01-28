@@ -1,11 +1,10 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting;
 using System.Collections.Generic;
 using System.Linq;
+
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScriptingEditor
+namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 {
-
     public abstract class SyncedVariablesEventNodesWidget<T, U> : UnitWidget<T> where T : SyncedVariableBaseEventUnit<U>
     {
         private SyncedVariables syncedVariables;

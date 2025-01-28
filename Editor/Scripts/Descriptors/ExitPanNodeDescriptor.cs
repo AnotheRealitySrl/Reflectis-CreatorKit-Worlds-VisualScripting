@@ -1,7 +1,7 @@
 using Reflectis.CreatorKit.Worlds.VisualScripting;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScriptingEditor
+namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 {
     [Descriptor(typeof(ExitPanNode))]
     public class ExitPanNodeDescriptor : UnitDescriptor<ExitPanNode>

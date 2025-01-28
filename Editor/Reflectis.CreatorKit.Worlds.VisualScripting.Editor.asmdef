@@ -2,16 +2,16 @@
     "name": "Reflectis.CreatorKit.Worlds.VisualScripting.Editor",
     "rootNamespace": "Reflectis.CreatorKit.Worlds.VisualScripting.Editor",
     "references": [
+        "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:9b30ce4289cbc5c4b93ce43cb6fd887c",
         "GUID:01470f9b53eba9e4cb6fb8ffb31c0ce9",
         "GUID:e1e4f83f6c2796445b9ea45a4dca9090",
         "GUID:55643044a94b09b4caf454bc345e8c8b",
+        "GUID:d144e5d8e92d0bc419736e72debb4e2a",
         "GUID:23f3c6063e13e4fd9addce3606ff4e42",
-        "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:21b0c8d1703a94250bfac916590cea4f",
         "GUID:54cb1906aeb4e4264bc1d2aa3818a43f",
-        "GUID:ea715009a4efd4c6cbc85be3ae097dd3",
-        "GUID:d144e5d8e92d0bc419736e72debb4e2a"
+        "GUID:ea715009a4efd4c6cbc85be3ae097dd3"
     ],
     "includePlatforms": [
         "Editor"

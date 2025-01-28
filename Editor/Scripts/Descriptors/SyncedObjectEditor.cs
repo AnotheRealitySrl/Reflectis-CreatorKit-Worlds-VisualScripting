@@ -10,7 +10,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [CustomEditor(typeof(SyncedObject))]
     public class SyncedObjectEditor : NetworkPlaceholderEditor
     {
-        private Editor _variablesEditor;
+        private UnityEditor.Editor _variablesEditor;
         private SerializedProperty _syncTransformProp;
         private GameObject _targetGameObject;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScriptingEditor
+namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 {
     [Descriptor(typeof(OnOtherPlayerEnteredEventNode))]
     public class OnOtherPlayerEnteredEventDescriptor : UnitDescriptor<OnOtherPlayerEnteredEventNode>
