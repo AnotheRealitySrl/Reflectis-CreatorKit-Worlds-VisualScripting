@@ -1,5 +1,5 @@
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 using Reflectis.CreatorKit.Worlds.Placeholders;
-using Reflectis.SDK.Core.Interaction;
 
 using System.Threading.Tasks;
 
@@ -7,11 +7,12 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 
-using static Reflectis.SDK.Core.Interaction.IInteractable;
+using static Reflectis.CreatorKit.Worlds.Core.Interaction.IInteractable;
+using static Reflectis.CreatorKit.Worlds.Core.Interaction.IManipulable;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    public abstract class OnManipulationEventUnit : EventUnit<Manipulable>
+    public abstract class OnManipulationEventUnit : EventUnit<IManipulable>
     {
         [DoNotSerialize]
         public ValueOutput Manipulable { get; private set; }
@@ -19,16 +20,16 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected GraphReference graphReference;
 
-        protected Manipulable manipulableReference;
+        protected IManipulable manipulableReference;
 
         protected override void Definition()
         {
             base.Definition();
             // Setting the value on our port.
-            Manipulable = ValueOutput<Manipulable>(nameof(Manipulable));
+            Manipulable = ValueOutput<IManipulable>(nameof(Manipulable));
         }
 
-        protected override void AssignArguments(Flow flow, Manipulable data)
+        protected override void AssignArguments(Flow flow, IManipulable data)
         {
             flow.SetValue(Manipulable, manipulableReference);
         }
@@ -43,16 +44,16 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         private async void RegisterToManipulableGrab(GameObject gameObject)
         {
-            manipulableReference = gameObject.GetComponent<Manipulable>();
+            manipulableReference = gameObject.GetComponent<IManipulable>();
             if (manipulableReference == null)
             {
                 if (gameObject.TryGetComponent<InteractablePlaceholder>(out var interactablePlaceholder) && ((interactablePlaceholder.InteractionModes & EInteractableType.Manipulable) == EInteractableType.Manipulable))
                 {
-                    manipulableReference = gameObject.GetComponent<Manipulable>();
+                    manipulableReference = gameObject.GetComponent<IManipulable>();
                     while (manipulableReference == null)
                     {
                         await Task.Yield();
-                        manipulableReference = gameObject.GetComponent<Manipulable>();
+                        manipulableReference = gameObject.GetComponent<IManipulable>();
                     }
                 }
             }
@@ -67,6 +68,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             }
         }
 
-        protected abstract void OnManipulableStateChange(Manipulable.EManipulableState manipulableState);
+        protected abstract void OnManipulableStateChange(EManipulableState manipulableState);
     }
 }

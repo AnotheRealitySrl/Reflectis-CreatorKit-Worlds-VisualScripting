@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -19,7 +19,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         [NullMeansSelf]
         [DoNotSerialize]
-        public ValueInput GenericInteractable { get; private set; }
+        public ValueInput VisualScriptingInteractable { get; private set; }
 
         [NullMeansSelf]
         [DoNotSerialize]
@@ -27,7 +27,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            GenericInteractable = ValueInput<GenericInteractable>(nameof(GenericInteractable));
+            VisualScriptingInteractable = ValueInput<IVisualScriptingInteractable>(nameof(VisualScriptingInteractable));
 
             BlockValue = ValueInput<bool>(nameof(BlockValue), false);
 
@@ -36,11 +36,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
                 if (f.GetValue<bool>(BlockValue))
                 {
-                    f.GetValue<GenericInteractable>(GenericInteractable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IVisualScriptingInteractable>(VisualScriptingInteractable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
                 }
                 else
                 {
-                    f.GetValue<GenericInteractable>(GenericInteractable).CurrentBlockedState = f.GetValue<GenericInteractable>(GenericInteractable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IVisualScriptingInteractable>(VisualScriptingInteractable).CurrentBlockedState = f.GetValue<IVisualScriptingInteractable>(VisualScriptingInteractable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
                 }
                 return OutputTrigger;
             });

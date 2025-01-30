@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -27,7 +27,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            ContextualMenuManageable = ValueInput<ContextualMenuManageable>(nameof(ContextualMenuManageable));
+            ContextualMenuManageable = ValueInput<IContextualMenuManageable>(nameof(ContextualMenuManageable));
 
             BlockValue = ValueInput<bool>(nameof(BlockValue), false);
 
@@ -36,11 +36,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
                 if (f.GetValue<bool>(BlockValue))
                 {
-                    f.GetValue<ContextualMenuManageable>(ContextualMenuManageable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IContextualMenuManageable>(ContextualMenuManageable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
                 }
                 else
                 {
-                    f.GetValue<ContextualMenuManageable>(ContextualMenuManageable).CurrentBlockedState = f.GetValue<ContextualMenuManageable>(ContextualMenuManageable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IContextualMenuManageable>(ContextualMenuManageable).CurrentBlockedState = f.GetValue<IContextualMenuManageable>(ContextualMenuManageable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
                 }
                 return OutputTrigger;
             });

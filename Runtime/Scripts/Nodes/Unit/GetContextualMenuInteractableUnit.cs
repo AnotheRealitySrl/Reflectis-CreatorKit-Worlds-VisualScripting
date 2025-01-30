@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -24,7 +24,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             GameObject = ValueInput<GameObject>(nameof(GameObject), null).NullMeansSelf();
 
-            ContextualMenuInteractable = ValueOutput(nameof(ContextualMenuInteractable), (flow) => flow.GetValue<GameObject>(GameObject).GetComponent<ContextualMenuManageable>());
+            ContextualMenuInteractable = ValueOutput(nameof(ContextualMenuInteractable), (flow) => flow.GetValue<GameObject>(GameObject).GetComponent<IContextualMenuManageable>());
         }
 
 

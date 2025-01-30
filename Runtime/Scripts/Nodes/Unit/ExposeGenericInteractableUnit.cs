@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -26,13 +26,13 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            Interactable = ValueInput<GenericInteractable>(nameof(Interactable), null).NullMeansSelf();
+            Interactable = ValueInput<IVisualScriptingInteractable>(nameof(Interactable), null).NullMeansSelf();
 
-            GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<GenericInteractable>(Interactable).InteractableRef.GameObjectRef);
+            GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).InteractableRef.GameObjectRef);
 
-            InteractionState = ValueOutput(nameof(InteractionState), (flow) => flow.GetValue<GenericInteractable>(Interactable).InteractableRef.InteractionState);
+            InteractionState = ValueOutput(nameof(InteractionState), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).InteractableRef.InteractionState);
 
-            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<GenericInteractable>(Interactable).InteractableRef.InteractionColliders);
+            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).InteractableRef.InteractionColliders);
         }
 
 

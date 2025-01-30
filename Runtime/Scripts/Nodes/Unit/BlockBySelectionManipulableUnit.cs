@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -27,7 +27,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            Manipulable = ValueInput<Manipulable>(nameof(Manipulable));
+            Manipulable = ValueInput<IManipulable>(nameof(Manipulable));
 
             BlockValue = ValueInput<bool>(nameof(BlockValue), false);
 
@@ -36,11 +36,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
                 if (f.GetValue<bool>(BlockValue))
                 {
-                    f.GetValue<Manipulable>(Manipulable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IManipulable>(Manipulable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
                 }
                 else
                 {
-                    f.GetValue<Manipulable>(Manipulable).CurrentBlockedState = f.GetValue<Manipulable>(Manipulable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IManipulable>(Manipulable).CurrentBlockedState = f.GetValue<IManipulable>(Manipulable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
                 }
                 return OutputTrigger;
             });

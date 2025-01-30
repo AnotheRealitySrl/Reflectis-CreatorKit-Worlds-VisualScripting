@@ -1,5 +1,5 @@
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -9,7 +9,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("GenericInteractable")]
     [UnitShortTitle("On Selected Change")]
     [UnitCategory("Events\\Reflectis")]
-    public class OnSelectedGenericInteractableChange : EventUnit<GenericInteractable>
+    public class OnSelectedGenericInteractableChange : EventUnit<IVisualScriptingInteractable>
     {
         [DoNotSerialize]
         public ValueOutput GenericInteractable { get; private set; }
@@ -17,16 +17,16 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected GraphReference graphReference;
 
-        protected GenericInteractable interactableReference;
+        protected IVisualScriptingInteractable interactableReference;
 
         protected override void Definition()
         {
             base.Definition();
             // Setting the value on our port.
-            GenericInteractable = ValueOutput<GenericInteractable>(nameof(GenericInteractable));
+            GenericInteractable = ValueOutput<IVisualScriptingInteractable>(nameof(IVisualScriptingInteractable));
         }
 
-        protected override void AssignArguments(Flow flow, GenericInteractable data)
+        protected override void AssignArguments(Flow flow, IVisualScriptingInteractable data)
         {
             flow.SetValue(GenericInteractable, interactableReference);
         }
@@ -42,17 +42,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             base.Instantiate(instance);
 
-            SM.GetSystem<IGenericInteractionSystem>().OnSelectedInteractableChange.AddListener(OnSelectedChange);
+            SM.GetSystem<IVisualScriptingInteractionSystem>().OnSelectedInteractableChange.AddListener(OnSelectedChange);
         }
 
         public override void Uninstantiate(GraphReference instance)
         {
             base.Uninstantiate(instance);
 
-            SM.GetSystem<IGenericInteractionSystem>().OnSelectedInteractableChange.RemoveListener(OnSelectedChange);
+            SM.GetSystem<IVisualScriptingInteractionSystem>().OnSelectedInteractableChange.RemoveListener(OnSelectedChange);
         }
 
-        private void OnSelectedChange(GenericInteractable newSelection)
+        private void OnSelectedChange(IVisualScriptingInteractable newSelection)
         {
             interactableReference = newSelection;
             Trigger(graphReference, interactableReference);
