@@ -6,7 +6,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("Generic Interactable")]
     [UnitShortTitle("On Select Exit")]
     [UnitCategory("Events\\Reflectis")]
-    public class SelectExitEventUnit : GenericInteractableEventUnit
+    public class SelectExitEventUnit : VisualScriptingInteractableEventUnit
     {
 
     }

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    public abstract class GenericInteractableEventUnit : AwaitableEventUnit<IVisualScriptingInteractable>
+    public abstract class VisualScriptingInteractableEventUnit : AwaitableEventUnit<IVisualScriptingInteractable>
     {
         [DoNotSerialize]
         public ValueOutput Interactable { get; private set; }
@@ -25,7 +25,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         public override EventHook GetHook(GraphReference reference)
         {
-            return new EventHook("GenericInteractable" + this.ToString().Split("Unit")[0]);
+            return new EventHook("VisualScriptingInteractable" + this.ToString().Split("Unit")[0]);
         }
     }
 }

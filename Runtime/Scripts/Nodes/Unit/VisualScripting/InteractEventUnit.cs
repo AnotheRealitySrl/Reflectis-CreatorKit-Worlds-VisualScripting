@@ -6,7 +6,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("Generic Interactable")]
     [UnitShortTitle("On Interact")]
     [UnitCategory("Events\\Reflectis")]
-    public class InteractEventUnit : GenericInteractableEventUnit
+    public class InteractEventUnit : VisualScriptingInteractableEventUnit
     {
 
     }

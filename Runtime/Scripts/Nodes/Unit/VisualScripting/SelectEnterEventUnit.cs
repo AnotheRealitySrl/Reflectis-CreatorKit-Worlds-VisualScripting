@@ -6,7 +6,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("Generic Interactable")]
     [UnitShortTitle("On Select Enter")]
     [UnitCategory("Events\\Reflectis")]
-    public class SelectEnterEventUnit : GenericInteractableEventUnit
+    public class SelectEnterEventUnit : VisualScriptingInteractableEventUnit
     {
 
     }

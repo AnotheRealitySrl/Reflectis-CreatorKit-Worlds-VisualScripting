@@ -4,11 +4,11 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis GenericInteractable: BlockInteractionBySelection")]
-    [UnitSurtitle("GenericInteractable")]
+    [UnitTitle("Reflectis VisualScriptingInteractable: BlockInteractionBySelection")]
+    [UnitSurtitle("VisualScriptingInteractable")]
     [UnitShortTitle("BlockInteractionBySelection")]
     [UnitCategory("Reflectis\\Flow")]
-    public class BlockBySelectionGenericInteractableUnit : Unit
+    public class BlockBySelectionVisualScriptingInteractableUnit : Unit
     {
         [DoNotSerialize]
         [PortLabelHidden]

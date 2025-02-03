@@ -6,7 +6,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("Generic Interactable")]
     [UnitShortTitle("On Hover Exit")]
     [UnitCategory("Events\\Reflectis")]
-    public class HoverExitEventUnit : GenericInteractableEventUnit
+    public class HoverExitEventUnit : VisualScriptingInteractableEventUnit
     {
 
     }

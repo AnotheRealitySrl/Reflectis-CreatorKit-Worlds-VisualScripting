@@ -13,7 +13,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     {
         public override EventHook GetHook(GraphReference reference)
         {
-            return new EventHook("GenericInteractable" + this.ToString().Split("Unit")[0]);
+            return new EventHook("VisualScriptingInteractable" + this.ToString().Split("Unit")[0]);
         }
     }
 }

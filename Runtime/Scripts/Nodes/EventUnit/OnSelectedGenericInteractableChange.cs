@@ -6,13 +6,13 @@ using Unity.VisualScripting;
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Generic Interactable: On Selected Change")]
-    [UnitSurtitle("GenericInteractable")]
+    [UnitSurtitle("VisualScriptingInteractable")]
     [UnitShortTitle("On Selected Change")]
     [UnitCategory("Events\\Reflectis")]
-    public class OnSelectedGenericInteractableChange : EventUnit<IVisualScriptingInteractable>
+    public class OnSelectedVisualScriptingInteractableChange : EventUnit<IVisualScriptingInteractable>
     {
         [DoNotSerialize]
-        public ValueOutput GenericInteractable { get; private set; }
+        public ValueOutput VisualScriptingInteractable { get; private set; }
         protected override bool register => true;
 
         protected GraphReference graphReference;
@@ -23,19 +23,19 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             base.Definition();
             // Setting the value on our port.
-            GenericInteractable = ValueOutput<IVisualScriptingInteractable>(nameof(IVisualScriptingInteractable));
+            VisualScriptingInteractable = ValueOutput<IVisualScriptingInteractable>(nameof(IVisualScriptingInteractable));
         }
 
         protected override void AssignArguments(Flow flow, IVisualScriptingInteractable data)
         {
-            flow.SetValue(GenericInteractable, interactableReference);
+            flow.SetValue(VisualScriptingInteractable, interactableReference);
         }
 
         public override EventHook GetHook(GraphReference reference)
         {
             graphReference = reference;
 
-            return new EventHook("GenericInteractable" + this.ToString().Split("EventUnit")[0]);
+            return new EventHook("VisualScriptingInteractable" + this.ToString().Split("EventUnit")[0]);
         }
 
         public override void Instantiate(GraphReference instance)

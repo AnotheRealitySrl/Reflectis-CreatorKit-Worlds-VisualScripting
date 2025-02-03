@@ -8,7 +8,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("Expose")]
     [UnitShortTitle("Generic Interactable")]
     [UnitCategory("Reflectis\\Expose")]
-    public class ExposeGenericInteractableUnit : Unit
+    public class ExposeVisualScriptingInteractableUnit : Unit
     {
         [NullMeansSelf]
         [DoNotSerialize]
