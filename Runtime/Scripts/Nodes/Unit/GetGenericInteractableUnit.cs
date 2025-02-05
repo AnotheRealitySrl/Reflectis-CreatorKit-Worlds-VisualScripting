@@ -1,4 +1,4 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -10,7 +10,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("GameObject")]
     [UnitShortTitle("Get Generic Interactable")]
     [UnitCategory("Reflectis\\Get")]
-    public class GetGenericInteractableUnit : Unit
+    public class GetVisualScriptingInteractableUnit : Unit
     {
         [NullMeansSelf]
         [DoNotSerialize]
@@ -18,13 +18,13 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         public ValueInput GameObject { get; private set; }
 
         [DoNotSerialize]
-        public ValueOutput GenericInteractable { get; private set; }
+        public ValueOutput VisualScriptingInteractable { get; private set; }
 
         protected override void Definition()
         {
             GameObject = ValueInput<GameObject>(nameof(GameObject), null).NullMeansSelf();
 
-            GenericInteractable = ValueOutput(nameof(GenericInteractable), (flow) => flow.GetValue<GameObject>(GameObject).GetComponent<GenericInteractable>());
+            VisualScriptingInteractable = ValueOutput(nameof(IVisualScriptingInteractable), (flow) => flow.GetValue<GameObject>(GameObject).GetComponent<IVisualScriptingInteractable>());
         }
 
 

@@ -1,8 +1,6 @@
-using Reflectis.SDK.Core.Interaction;
-
 using Unity.VisualScripting;
 
-using static Reflectis.SDK.Core.Interaction.Manipulable;
+using static Reflectis.CreatorKit.Worlds.Core.Interaction.IManipulable;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -12,7 +10,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitCategory("Events\\Reflectis")]
     public class OnManipulationEndEventUnit : OnManipulationEventUnit
     {
-        protected override void OnManipulableStateChange(Manipulable.EManipulableState manipulableState)
+        protected override void OnManipulableStateChange(EManipulableState manipulableState)
         {
             if (manipulableState == EManipulableState.Idle)
             {

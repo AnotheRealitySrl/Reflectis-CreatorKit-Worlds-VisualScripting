@@ -1,5 +1,4 @@
-using Reflectis.CreatorKit.Worlds.Core.SceneHierarchy;
-using Reflectis.SDK.Core.SystemFramework;
+using Reflectis.CreatorKit.Worlds.Core;
 
 using System.Collections.Generic;
 
@@ -39,7 +38,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                SM.GetSystem<ISceneObjectsSystem>().EnableSpawnedObjects(f.GetValue<bool>(Enable), new List<GameObject>() { f.stack.AsReference().gameObject });
+                IReflectisApplicationManager.Instance.EnableSpawnedObjects(f.GetValue<bool>(Enable), new List<GameObject>() { f.stack.AsReference().gameObject });
 
                 return OutputTrigger;
             });

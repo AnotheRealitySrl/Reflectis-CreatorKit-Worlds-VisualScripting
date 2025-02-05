@@ -1,8 +1,8 @@
-using Reflectis.SDK.Core.Interaction;
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
-using static Reflectis.SDK.Core.Interaction.Manipulable;
+using static Reflectis.CreatorKit.Worlds.Core.Interaction.IManipulable;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -34,15 +34,15 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            Manipulable = ValueInput<Manipulable>(nameof(Manipulable), null).NullMeansSelf();
+            Manipulable = ValueInput<IManipulable>(nameof(Manipulable), null).NullMeansSelf();
 
-            GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<Manipulable>(Manipulable).InteractableRef.GameObjectRef);
+            GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<IManipulable>(Manipulable).InteractableRef.GameObjectRef);
 
-            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<Manipulable>(Manipulable).InteractableRef.InteractionColliders);
+            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IManipulable>(Manipulable).InteractableRef.InteractionColliders);
 
-            IsManipulated = ValueOutput(nameof(IsManipulated), (flow) => flow.GetValue<Manipulable>(Manipulable).CurrentInteractionState == EManipulableState.Manipulating);
+            IsManipulated = ValueOutput(nameof(IsManipulated), (flow) => flow.GetValue<IManipulable>(Manipulable).CurrentInteractionState == EManipulableState.Manipulating);
 
-            ManipulationInput = ValueOutput(nameof(ManipulationInput), (flow) => flow.GetValue<Manipulable>(Manipulable).CurrentManipulationInput);
+            ManipulationInput = ValueOutput(nameof(ManipulationInput), (flow) => flow.GetValue<IManipulable>(Manipulable).CurrentManipulationInput);
         }
     }
 }

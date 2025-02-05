@@ -1,5 +1,5 @@
+using Reflectis.CreatorKit.Worlds.Core.Interaction;
 using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Interaction;
 
 using Unity.VisualScripting;
 
@@ -23,7 +23,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                SM.GetSystem<ContextualMenuSystem>().HideContextualMenu();
+                SM.GetSystem<IContextualMenuSystem>().HideContextualMenu();
                 return OutputTrigger;
             });
 
