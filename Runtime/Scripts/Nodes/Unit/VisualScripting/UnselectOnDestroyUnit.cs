@@ -5,8 +5,8 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Generic Interactable: Unselect OnDestroy")]
-    [UnitSurtitle("Generic Interactable")]
+    [UnitTitle("Reflectis Visual Scripting Interactable: Unselect OnDestroy")]
+    [UnitSurtitle("Visual Scripting Interactable")]
     [UnitShortTitle("Unselect OnDestroy")]
     [UnitCategory("Events\\Reflectis")]
     public class UnselectOnDestroyUnit : AwaitableEventUnit<IVisualScriptingInteractable>

@@ -2,8 +2,8 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Generic Interactable: On Select Enter")]
-    [UnitSurtitle("Generic Interactable")]
+    [UnitTitle("Reflectis Visual Scripting Interactable: On Select Enter")]
+    [UnitSurtitle("Visual Scripting Interactable")]
     [UnitShortTitle("On Select Enter")]
     [UnitCategory("Events\\Reflectis")]
     public class SelectEnterEventUnit : VisualScriptingInteractableEventUnit

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Generic Interactable: On Selected Change")]
+    [UnitTitle("Reflectis Visual Scripting Interactable: On Selected Change")]
     [UnitSurtitle("VisualScriptingInteractable")]
     [UnitShortTitle("On Selected Change")]
     [UnitCategory("Events\\Reflectis")]
