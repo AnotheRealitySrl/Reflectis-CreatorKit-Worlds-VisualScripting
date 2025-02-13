@@ -1,6 +1,5 @@
+using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.NetworkingSystem;
-
 using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
@@ -14,11 +13,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         [NullMeansSelf]
         [DoNotSerialize]
         [PortLabel("PlayerId")]
-        public ValueOutput PlayerId { get; private set; }
+        public ValueOutput SessionId { get; private set; }
 
         protected override void Definition()
         {
-            PlayerId = ValueOutput(nameof(PlayerId), (f) => SM.GetSystem<INetworkingSystem>().GetLocalPlayerId());
+            SessionId = ValueOutput(nameof(SessionId), (f) => SM.GetSystem<IClientModelSystem>().SessionId);
         }
     }
 }

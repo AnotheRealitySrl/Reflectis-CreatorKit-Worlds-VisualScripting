@@ -46,7 +46,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             if (staticEvent != null && staticEvent.CanJoin)
             {
-                await IReflectisApplicationManager.Instance.LoadEvent(staticEvent);
+                await IReflectisApplicationManager.Instance.JoinEvent(staticEvent);
             }
             else
             {
