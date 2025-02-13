@@ -17,13 +17,13 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected GraphReference graphReference;
 
-        protected IVisualScriptingInteractable interactableReference;
+        protected VisualScriptingInteractable interactableReference;
 
         protected override void Definition()
         {
             base.Definition();
             // Setting the value on our port.
-            VisualScriptingInteractable = ValueOutput<IVisualScriptingInteractable>(nameof(IVisualScriptingInteractable));
+            VisualScriptingInteractable = ValueOutput<VisualScriptingInteractable>(nameof(VisualScriptingInteractable));
         }
 
         protected override void AssignArguments(Flow flow, VisualScriptingInteractable data)
@@ -54,8 +54,8 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         private void OnSelectedChange(IVisualScriptingInteractable newSelection)
         {
-            interactableReference = newSelection;
-            Trigger(graphReference, interactableReference as VisualScriptingInteractable);
+            interactableReference = newSelection as VisualScriptingInteractable;
+            Trigger(graphReference, interactableReference);
         }
     }
 }
