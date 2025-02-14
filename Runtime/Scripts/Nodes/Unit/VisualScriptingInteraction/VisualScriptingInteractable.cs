@@ -91,7 +91,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 Destroy(unselectOnDestroyGameobject);
             }
 
-            SM.GetSystem<IVisualScriptingInteractionSystem>().UnselectCurrentInteractable();
+            if (this == SM.GetSystem<IVisualScriptingInteractionSystem>().SelectedInteractable as VisualScriptingInteractable)
+            {
+                SM.GetSystem<IVisualScriptingInteractionSystem>().UnselectCurrentInteractable();
+            }
         }
 
 
