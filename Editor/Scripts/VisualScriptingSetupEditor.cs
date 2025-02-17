@@ -1,9 +1,6 @@
 #if UNITY_EDITOR
-using Reflectis.CreatorKit.Worlds.CoreEditor;
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Unity.VisualScripting;
 
@@ -74,13 +71,14 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 
         private static IEnumerable<Type> GetCustomTypes()
         {
-            var customTypeCollector = Resources.Load<VisualScriptingCustomTypeCollector>("VisualScriptingCustomTypeCollector");
-            var reflectisCustomTypeCollector = Resources.Load<VisualScriptingCustomTypeCollector>("ReflectisVisualScriptingCustomTypeCollector");
-            if (reflectisCustomTypeCollector != null)
+            VisualScriptingCustomTypeCollector[] customTypeCollectors = Resources.FindObjectsOfTypeAll<VisualScriptingCustomTypeCollector>();
+
+            List<Type> customTypes = new();
+            foreach (var customTypeCollector in customTypeCollectors)
             {
-                return customTypeCollector.GetCustomTypes().Union(reflectisCustomTypeCollector.GetCustomTypes());
+                customTypes.AddRange(customTypeCollector.GetCustomTypes());
             }
-            return customTypeCollector.GetCustomTypes();
+            return customTypes;
         }
     }
 }

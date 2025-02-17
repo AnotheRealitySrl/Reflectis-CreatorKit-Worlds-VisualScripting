@@ -5,11 +5,11 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Generic Interactable: On Selected Change")]
+    [UnitTitle("Reflectis Visual Scripting Interactable: On Selected Change")]
     [UnitSurtitle("VisualScriptingInteractable")]
     [UnitShortTitle("On Selected Change")]
     [UnitCategory("Events\\Reflectis")]
-    public class OnSelectedVisualScriptingInteractableChange : EventUnit<IVisualScriptingInteractable>
+    public class OnSelectedVisualScriptingInteractableChange : EventUnit<VisualScriptingInteractable>
     {
         [DoNotSerialize]
         public ValueOutput VisualScriptingInteractable { get; private set; }
@@ -17,16 +17,16 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected GraphReference graphReference;
 
-        protected IVisualScriptingInteractable interactableReference;
+        protected VisualScriptingInteractable interactableReference;
 
         protected override void Definition()
         {
             base.Definition();
             // Setting the value on our port.
-            VisualScriptingInteractable = ValueOutput<IVisualScriptingInteractable>(nameof(IVisualScriptingInteractable));
+            VisualScriptingInteractable = ValueOutput<VisualScriptingInteractable>(nameof(VisualScriptingInteractable));
         }
 
-        protected override void AssignArguments(Flow flow, IVisualScriptingInteractable data)
+        protected override void AssignArguments(Flow flow, VisualScriptingInteractable data)
         {
             flow.SetValue(VisualScriptingInteractable, interactableReference);
         }
@@ -54,7 +54,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         private void OnSelectedChange(IVisualScriptingInteractable newSelection)
         {
-            interactableReference = newSelection;
+            interactableReference = newSelection as VisualScriptingInteractable;
             Trigger(graphReference, interactableReference);
         }
     }
