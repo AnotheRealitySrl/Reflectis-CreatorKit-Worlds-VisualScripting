@@ -4,9 +4,9 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis: Expose Generic Interactable")]
+    [UnitTitle("Reflectis: Expose Visual Scripting Interactable")]
     [UnitSurtitle("Expose")]
-    [UnitShortTitle("Generic Interactable")]
+    [UnitShortTitle("Visual Scripting Interactable")]
     [UnitCategory("Reflectis\\Expose")]
     public class ExposeVisualScriptingInteractableUnit : Unit
     {
