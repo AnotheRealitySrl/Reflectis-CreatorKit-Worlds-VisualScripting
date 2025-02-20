@@ -126,28 +126,35 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             if (interactionScriptMachine != null)
             {
-                foreach (var unit in interactionScriptMachine.graph.units)
+                if (interactionScriptMachine.graph != null)
                 {
-                    if (unit is HoverEnterEventUnit hoverEnterEventUnit)
+                    foreach (var unit in interactionScriptMachine.graph.units)
                     {
-                        hoverEnterEventUnits.Add(hoverEnterEventUnit);
+                        if (unit is HoverEnterEventUnit hoverEnterEventUnit)
+                        {
+                            hoverEnterEventUnits.Add(hoverEnterEventUnit);
+                        }
+                        if (unit is HoverExitEventUnit hoverExitEventUnit)
+                        {
+                            hoverExitEventUnits.Add(hoverExitEventUnit);
+                        }
+                        if (unit is SelectEnterEventUnit selectEnterEventUnit)
+                        {
+                            selectEnterEventUnits.Add(selectEnterEventUnit);
+                        }
+                        if (unit is SelectExitEventUnit selectExitEventUnit)
+                        {
+                            selectExitEventUnits.Add(selectExitEventUnit);
+                        }
+                        if (unit is InteractEventUnit interactEventUnit)
+                        {
+                            interactEventUnits.Add(interactEventUnit);
+                        }
                     }
-                    if (unit is HoverExitEventUnit hoverExitEventUnit)
-                    {
-                        hoverExitEventUnits.Add(hoverExitEventUnit);
-                    }
-                    if (unit is SelectEnterEventUnit selectEnterEventUnit)
-                    {
-                        selectEnterEventUnits.Add(selectEnterEventUnit);
-                    }
-                    if (unit is SelectExitEventUnit selectExitEventUnit)
-                    {
-                        selectExitEventUnits.Add(selectExitEventUnit);
-                    }
-                    if (unit is InteractEventUnit interactEventUnit)
-                    {
-                        interactEventUnits.Add(interactEventUnit);
-                    }
+                }
+                else
+                {
+                    Debug.LogError($"Null graph on script machine {interactionScriptMachine.gameObject}!", interactionScriptMachine.gameObject);
                 }
             }
 

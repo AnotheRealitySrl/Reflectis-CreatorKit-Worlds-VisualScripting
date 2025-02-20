@@ -1,6 +1,5 @@
+using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.NetworkingSystem;
-
 using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
@@ -18,7 +17,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            IsOpen = ValueOutput(nameof(IsOpen), (f) => SM.GetSystem<INetworkingSystem>().IsCurrentShardOpen);
+            IsOpen = ValueOutput(nameof(IsOpen), (f) => !SM.GetSystem<IClientModelSystem>().CurrentShard?.IsClosed);
         }
     }
 }
