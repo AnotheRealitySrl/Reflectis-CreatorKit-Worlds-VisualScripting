@@ -5,6 +5,7 @@ using Reflectis.SDK.Core.SystemFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
@@ -24,7 +25,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
-        [SerializeField] private ScriptMachine unselectOnDestroyScriptMachine = null;
+        private ScriptMachine unselectOnDestroyScriptMachine = null;
 
         [Header("Allowed states")]
         [SerializeField] private EAllowedVisualScriptingInteractableState desktopAllowedStates = EAllowedVisualScriptingInteractableState.Selected | EAllowedVisualScriptingInteractableState.Interacting;
@@ -34,7 +35,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         public Action<GameObject> OnSelectedActionVisualScripting;
 
         public ScriptMachine InteractionScriptMachine { get => interactionScriptMachine; set => interactionScriptMachine = value; }
-        public ScriptMachine UnselectOnDestroyScriptMachine { get => unselectOnDestroyScriptMachine; set => unselectOnDestroyScriptMachine = value; }
 
         public EAllowedVisualScriptingInteractableState DesktopAllowedStates { get => desktopAllowedStates; set => desktopAllowedStates = value; }
         public EAllowedVisualScriptingInteractableState VRAllowedStates { get => vrAllowedStates; set => vrAllowedStates = value; }
@@ -74,11 +74,14 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         public List<InteractEventUnit> interactEventUnits = new List<InteractEventUnit>();
 
-        private List<UnselectOnDestroyUnit> unselectOnDestroyEventUnits = new List<UnselectOnDestroyUnit>();
+        private List<SelectExitEventUnit> unselectOnDestroyEventUnits = new List<SelectExitEventUnit>();
 
-        private GameObject unselectOnDestroyGameobject;
         private async void OnDestroy()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
             if (!IsIdleState && CurrentInteractionState != EVisualScriptingInteractableState.SelectExiting)
             {
                 foreach (var unit in unselectOnDestroyEventUnits)
@@ -86,9 +89,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                     await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
                 }
             }
-            if (unselectOnDestroyGameobject != null)
+            if (unselectOnDestroyScriptMachine.gameObject != null)
             {
-                Destroy(unselectOnDestroyGameobject);
+                Destroy(unselectOnDestroyScriptMachine.gameObject);
             }
 
             if (this == SM.GetSystem<IVisualScriptingInteractionSystem>().SelectedInteractable as VisualScriptingInteractable)
@@ -145,6 +148,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                         if (unit is SelectExitEventUnit selectExitEventUnit)
                         {
                             selectExitEventUnits.Add(selectExitEventUnit);
+                            SetupOnDestroy(selectExitEventUnit);
                         }
                         if (unit is InteractEventUnit interactEventUnit)
                         {
@@ -158,33 +162,142 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 }
             }
 
-            if (unselectOnDestroyScriptMachine != null)
+            return Task.CompletedTask;
+        }
+
+        private void SetupOnDestroy(SelectExitEventUnit unselectUnit)
+        {
+            if (unselectOnDestroyScriptMachine == null)
             {
-                if (unselectOnDestroyScriptMachine.gameObject == gameObject)
+                GameObject go = new GameObject("UnselectOnDestroy" + gameObject.name);
+                CopyVariables(go, GetComponent<Variables>());
+                DontDestroyOnLoad(go);
+                unselectOnDestroyScriptMachine = go.AddComponent<ScriptMachine>();
+                unselectOnDestroyScriptMachine.nest.SwitchToEmbed(new FlowGraph());
+            }
+            SelectExitEventUnit newSelectExitUnit = CopyScriptMachineUnit(unselectOnDestroyScriptMachine, unselectUnit) as SelectExitEventUnit;
+            unselectOnDestroyEventUnits.Add(newSelectExitUnit);
+        }
+
+        public IUnit CopyScriptMachineUnit(ScriptMachine scriptMachine, IUnit unit)
+        {
+            if (!scriptMachine.graph.units.Any(x => x.guid.Equals(unit.guid)))
+            {
+                IUnit newUnit = CloneUnit(unit);
+                scriptMachine.graph.units.Add(newUnit);
+
+                foreach (var port in unit.ports)
                 {
-                    Debug.LogError("Unselect on destroy script machine inserted on interactable gameObject." +
-                        " This is not allowed please insert the script machine on a different empty gameobject");
-                }
-                else
-                {
-                    bool foundUnit = false;
-                    foreach (var unit in unselectOnDestroyScriptMachine.graph.units)
+                    if (port.hasValidConnection)
                     {
-                        if (unit is UnselectOnDestroyUnit unselectOnDestroyEventUnit)
+                        foreach (var connection in port.connections)
                         {
-                            unselectOnDestroyEventUnits.Add(unselectOnDestroyEventUnit);
-                            foundUnit = true;
+                            IUnitOutputPort source = null;
+                            IUnitInputPort destination = null;
+                            if (connection.source != port)
+                            {
+                                IUnit connectedUnit = CopyScriptMachineUnit(scriptMachine, connection.source.unit);
+                                foreach (var connectedUnitPort in connectedUnit.ports)
+                                {
+                                    if (connectedUnitPort.key == connection.source.key && connectedUnitPort is IUnitOutputPort unitOutputPort)
+                                    {
+                                        source = unitOutputPort;
+                                    }
+                                }
+                                foreach (var newPort in newUnit.ports)
+                                {
+                                    if (newPort.key == port.key && newPort is IUnitInputPort newInputPort)
+                                    {
+                                        destination = newInputPort;
+                                    }
+                                }
+                            }
+                            if (connection.destination != port)
+                            {
+                                IUnit connectedUnit = CopyScriptMachineUnit(scriptMachine, connection.destination.unit);
+                                foreach (var connectedUnitPort in connectedUnit.ports)
+                                {
+                                    if (connectedUnitPort.key == connection.destination.key && connectedUnitPort is IUnitInputPort unitOutputPort)
+                                    {
+                                        destination = unitOutputPort;
+                                    }
+                                }
+                                foreach (var newPort in newUnit.ports)
+                                {
+                                    if (newPort.key == port.key && newPort is IUnitOutputPort newInputPort)
+                                    {
+                                        source = newInputPort;
+                                    }
+                                }
+                            }
+                            source.ValidlyConnectTo(destination);
                         }
                     }
-                    if (foundUnit)
-                    {
-                        unselectOnDestroyGameobject = unselectOnDestroyScriptMachine.gameObject;
-                        unselectOnDestroyGameobject.transform.parent = null;
-                        DontDestroyOnLoad(unselectOnDestroyGameobject);
-                    }
+                }
+                return newUnit;
+            }
+            else
+            {
+                return scriptMachine.graph.units.FirstOrDefault(x => x.guid.Equals(unit.guid));
+            }
+        }
+
+        private IUnit CloneUnit(IUnit originalUnit)
+        {
+            var unitType = originalUnit.GetType();
+            var clonedUnit = (IUnit)Activator.CreateInstance(unitType);
+
+            if (originalUnit is SubgraphUnit subgraphUnit)
+            {
+                clonedUnit = new SubgraphUnit(subgraphUnit.nest.macro);
+            }
+
+            // Creiamo una nuova istanza dell'unità
+
+            // Copiamo tutte le proprietà pubbliche da originalConnection a clonedConnection
+            foreach (var field in unitType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                if (field.Name.Equals("graph"))
+                {
+                    continue;
+                }
+                field.SetValue(clonedUnit, field.GetValue(originalUnit));
+            }
+
+            // Copiamo anche le proprietà di tipo complesso tramite Reflection, se necessario
+            foreach (var property in unitType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                if (property.Name.Equals("graph"))
+                {
+                    continue;
+                }
+                if (property.CanWrite)
+                {
+                    property.SetValue(clonedUnit, property.GetValue(originalUnit));
                 }
             }
-            return Task.CompletedTask;
+
+
+
+            return clonedUnit;
+        }
+
+
+
+        public void CopyVariables(GameObject destination, Variables original)
+        {
+            if (original == null) return;
+
+            // Aggiungi un nuovo componente Variables al GameObject di destinazione
+            Variables newVariables = destination.AddComponent<Variables>();
+
+            // Copia tutte le variabili
+            foreach (var variable in original.declarations)
+            {
+                newVariables.declarations.Set(variable.name, variable.value);
+            }
+
+            return;
         }
 
         public override async void OnHoverStateEntered()
