@@ -170,7 +170,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             if (unselectOnDestroyScriptMachine == null)
             {
                 GameObject go = new GameObject("UnselectOnDestroy" + gameObject.name);
-                CopyVariables(go, GetComponent<Variables>());
+                CopyVariables(go, InteractionScriptMachine.GetComponent<Variables>());
                 DontDestroyOnLoad(go);
                 unselectOnDestroyScriptMachine = go.AddComponent<ScriptMachine>();
                 unselectOnDestroyScriptMachine.nest.SwitchToEmbed(new FlowGraph());
