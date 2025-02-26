@@ -164,7 +164,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             return Task.CompletedTask;
         }
-
+        #region OnUnselectOnDestroy
         private void SetupOnDestroy(SelectExitEventUnit unselectUnit)
         {
             if (unselectOnDestroyScriptMachine == null)
@@ -277,8 +277,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 }
             }
 
-
-
             return clonedUnit;
         }
 
@@ -299,7 +297,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             return;
         }
-
+        #endregion
         public override async void OnHoverStateEntered()
         {
             //if (!CanInteract || !hasHoveredState)
@@ -318,8 +316,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         public override async void OnHoverStateExited()
         {
             //if (!CanInteract || !hasHoveredState)
-            if (CurrentBlockedState != 0 || !hasHoveredState ||
-                (LockHoverDuringInteraction && currentInteractionState != EVisualScriptingInteractableState.Idle))
+            if (CurrentBlockedState != 0 || !hasHoveredState
+                || (InteractableRef.LockHoverDuringInteraction && currentInteractionState != EVisualScriptingInteractableState.Idle)
+                )
                 return;
 
             IEnumerable<Task> hoverExitUnitsTask = hoverExitEventUnits.Select(async unit =>
@@ -331,10 +330,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 await unit.AwaitableTrigger(interactionScriptMachine.GetReference().AsReference(), this);
             });
 
-
-
             await Task.WhenAll(hoverExitUnitsTask);
-
         }
 
         public override async Task EnterInteractionState()
