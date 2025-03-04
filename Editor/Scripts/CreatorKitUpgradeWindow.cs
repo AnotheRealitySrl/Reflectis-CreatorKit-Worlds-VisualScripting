@@ -80,11 +80,14 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
             foreach (string scenePathGuid in scenePaths)
             {
                 string scenePath = AssetDatabase.GUIDToAssetPath(scenePathGuid);
-                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+                if (!scenePath.StartsWith("Packages/"))
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
 
-                // Trova e sostituisci i componenti nella scena
-                ReplaceComponentsInScene();
-                UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+                    // Trova e sostituisci i componenti nella scena
+                    ReplaceComponentsInScene();
+                    UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+                }
             }
 
             // Trova e sostituisci i componenti nei prefabs
