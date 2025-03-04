@@ -85,8 +85,10 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                     UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
 
                     // Trova e sostituisci i componenti nella scena
-                    ReplaceComponentsInScene();
-                    UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+                    if (ReplaceComponentsInScene())
+                    {
+                        UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+                    }
                 }
             }
 
@@ -96,28 +98,33 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
             {
                 string prefabPath = AssetDatabase.GUIDToAssetPath(prefabPathGuid);
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-                ReplaceComponentsInPrefab(prefab);
-                PrefabUtility.SavePrefabAsset(prefab);
+                if (ReplaceComponentsInPrefab(prefab))
+                {
+                    PrefabUtility.SavePrefabAsset(prefab);
+                }
             }
 
             EditorUtility.DisplayDialog("Success", "Components replaced successfully!", "OK");
         }
 
-        private void ReplaceComponentsInScene()
+        private bool ReplaceComponentsInScene()
         {
             GameObject[] gameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+            bool modified = false;
             foreach (GameObject gameObject in gameObjects)
             {
-                ReplaceComponentRecursive(gameObject);
+                var isModified = ReplaceComponentRecursive(gameObject);
+                modified = modified || isModified;
             }
+            return modified;
         }
 
-        private void ReplaceComponentsInPrefab(GameObject prefab)
+        private bool ReplaceComponentsInPrefab(GameObject prefab)
         {
-            ReplaceComponentRecursive(prefab);
+            return ReplaceComponentRecursive(prefab);
         }
 
-        private void ReplaceComponentRecursive(GameObject gameObject)
+        private bool ReplaceComponentRecursive(GameObject gameObject)
         {
             InteractablePlaceholder[] interactables = gameObject.GetComponents<InteractablePlaceholder>();
             foreach (var interactable in interactables)
@@ -127,16 +134,18 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                     ReplaceInteractablePlaceholder(interactable);
                 }
             }
-
+            bool modified = false;
             foreach (Transform child in gameObject.transform)
             {
-                ReplaceComponentRecursive(child.gameObject);
+                var isModified = ReplaceComponentRecursive(child.gameObject);
+                modified = modified || isModified;
             }
+            return modified;
         }
 
         private void ReplaceInteractablePlaceholder(InteractablePlaceholder interactable)
         {
-            Debug.Log($"Replacing component in {interactable.gameObject.name}", interactable.gameObject);
+            Debug.Log($"Replacing component in {interactable.gameObject.name} in scene {interactable.gameObject.scene}", interactable.gameObject);
             UnityEditor.Undo.RecordObject(interactable.gameObject, "Replace Component");
 
             InteractionPlaceholder interactionPlaceholder = interactable.gameObject.AddComponent<InteractionPlaceholder>();
