@@ -75,6 +75,20 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
         private void ReplaceInteractablePlaceholder()
         {
+            string activeScenePath = "" + UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().path;
+            // Trova e sostituisci i componenti nei prefabs
+            string[] prefabPaths = AssetDatabase.FindAssets("t:Prefab");
+            foreach (string prefabPathGuid in prefabPaths)
+            {
+                string prefabPath = AssetDatabase.GUIDToAssetPath(prefabPathGuid);
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (ReplaceComponentsInPrefab(prefab))
+                {
+                    PrefabUtility.SaveAsPrefabAsset(prefab, prefabPath);
+                }
+            }
+
+
             // Trova tutte le scene nel progetto
             string[] scenePaths = AssetDatabase.FindAssets("t:Scene");
             foreach (string scenePathGuid in scenePaths)
@@ -92,17 +106,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 }
             }
 
-            // Trova e sostituisci i componenti nei prefabs
-            string[] prefabPaths = AssetDatabase.FindAssets("t:Prefab");
-            foreach (string prefabPathGuid in prefabPaths)
-            {
-                string prefabPath = AssetDatabase.GUIDToAssetPath(prefabPathGuid);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-                if (ReplaceComponentsInPrefab(prefab))
-                {
-                    PrefabUtility.SavePrefabAsset(prefab);
-                }
-            }
+            UnityEditor.SceneManagement.EditorSceneManager.OpenScene(activeScenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
 
             EditorUtility.DisplayDialog("Success", "Components replaced successfully!", "OK");
         }
@@ -121,20 +125,24 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
         private bool ReplaceComponentsInPrefab(GameObject prefab)
         {
-            return ReplaceComponentRecursive(prefab);
+            var replaced = ReplaceComponentRecursive(prefab);
+
+            return replaced;
         }
 
         private bool ReplaceComponentRecursive(GameObject gameObject)
         {
+
             InteractablePlaceholder[] interactables = gameObject.GetComponents<InteractablePlaceholder>();
+            bool modified = false;
             foreach (var interactable in interactables)
             {
                 if (interactable != null)
                 {
                     ReplaceInteractablePlaceholder(interactable);
                 }
+                modified = true;
             }
-            bool modified = false;
             foreach (Transform child in gameObject.transform)
             {
                 var isModified = ReplaceComponentRecursive(child.gameObject);
@@ -145,7 +153,8 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
         private void ReplaceInteractablePlaceholder(InteractablePlaceholder interactable)
         {
-            Debug.Log($"Replacing component in {interactable.gameObject.name} in scene {interactable.gameObject.scene}", interactable.gameObject);
+            Debug.Log($"Replacing component in {interactable.gameObject.name} in scene {interactable.gameObject.scene.name}", interactable.gameObject);
+
             UnityEditor.Undo.RecordObject(interactable.gameObject, "Replace Component");
 
             InteractionPlaceholder interactionPlaceholder = interactable.gameObject.AddComponent<InteractionPlaceholder>();
@@ -177,7 +186,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 EditorUtility.SetDirty(manipulablePlaceholder.gameObject);
             }
 
-            if (!interactable.InteractionModes.HasFlag(Core.Interaction.IInteractable.EInteractableType.VisualScriptingInteractable))
+            if (interactable.InteractionModes.HasFlag(Core.Interaction.IInteractable.EInteractableType.VisualScriptingInteractable))
             {
                 VisualScriptingInteractablePlaceholder vsPlaceholder = interactable.gameObject.AddComponent<VisualScriptingInteractablePlaceholder>();
                 vsPlaceholder.DesktopAllowedStates = interactable.DesktopAllowedStates;
@@ -189,7 +198,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
             EditorUtility.SetDirty(interactionPlaceholder.gameObject);
 
-            DestroyImmediate(interactable);
+            DestroyImmediate(interactable, true);
         }
     }
 }
