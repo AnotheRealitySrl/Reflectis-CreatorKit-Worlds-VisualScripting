@@ -133,7 +133,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
         private bool ReplaceComponentRecursive(GameObject gameObject)
         {
 
-            InteractablePlaceholder[] interactables = gameObject.GetComponents<InteractablePlaceholder>();
+            InteractablePlaceholderObsolete[] interactables = gameObject.GetComponents<InteractablePlaceholderObsolete>();
             bool modified = false;
             foreach (var interactable in interactables)
             {
@@ -151,7 +151,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
             return modified;
         }
 
-        private void ReplaceInteractablePlaceholder(InteractablePlaceholder interactable)
+        private void ReplaceInteractablePlaceholder(InteractablePlaceholderObsolete interactable)
         {
             Debug.Log($"Replacing component in {interactable.gameObject.name} in scene {interactable.gameObject.scene.name}", interactable.gameObject);
 
