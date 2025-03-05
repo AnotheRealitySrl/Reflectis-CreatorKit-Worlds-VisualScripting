@@ -89,7 +89,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                     await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
                 }
             }
-            if (unselectOnDestroyScriptMachine.gameObject != null)
+            if (unselectOnDestroyScriptMachine != null && unselectOnDestroyScriptMachine.gameObject != null)
             {
                 Destroy(unselectOnDestroyScriptMachine.gameObject);
             }
