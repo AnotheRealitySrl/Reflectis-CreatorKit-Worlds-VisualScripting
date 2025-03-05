@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 
 using UnityEngine;
-
-using static Reflectis.CreatorKit.Worlds.Core.Interaction.IInteractable;
 using static Reflectis.CreatorKit.Worlds.Core.Interaction.IManipulable;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
@@ -47,7 +45,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             manipulableReference = gameObject.GetComponent<IManipulable>();
             if (manipulableReference == null)
             {
-                if (gameObject.TryGetComponent<InteractablePlaceholder>(out var interactablePlaceholder) && ((interactablePlaceholder.InteractionModes & EInteractableType.Manipulable) == EInteractableType.Manipulable))
+                if (gameObject.TryGetComponent<ManipulablePlaceholder>(out var _))
                 {
                     manipulableReference = gameObject.GetComponent<IManipulable>();
                     while (manipulableReference == null)
