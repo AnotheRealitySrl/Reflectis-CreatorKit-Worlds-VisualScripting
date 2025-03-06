@@ -161,6 +161,8 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
             interactionPlaceholder.LockHoverDuringInteraction = interactable.LockHoverDuringInteraction;
             interactionPlaceholder.InteractionColliders = interactable.InteractionColliders;
+            interactionPlaceholder.IsNetworked = interactable.IsNetworked;
+
             EditorUtility.SetDirty(interactionPlaceholder.gameObject);
 
             if (interactable.InteractionModes.HasFlag(Core.Interaction.IInteractable.EInteractableType.ContextualMenuInteractable))
