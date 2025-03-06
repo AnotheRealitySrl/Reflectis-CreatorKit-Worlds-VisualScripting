@@ -8,7 +8,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.CoreEditor
+namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
     public class CreatorKitUpgradeWindow : EditorWindow
     {
