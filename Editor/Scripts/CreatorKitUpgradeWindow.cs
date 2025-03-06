@@ -1,4 +1,5 @@
 using Reflectis.CreatorKit.Worlds.Placeholders;
+using Reflectis.CreatorKit.Worlds.Tasks;
 using Reflectis.SDK.Core.Utilities;
 using System;
 using System.Collections.Generic;
@@ -78,8 +79,8 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
         {
             string activeScenePath = "" + UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().path;
 
-            // Trova e sostituisci i componenti nei prefabs
             string[] prefabPaths = AssetDatabase.FindAssets("t:Prefab");
+
             foreach (string prefabPathGuid in prefabPaths)
             {
                 string prefabPath = AssetDatabase.GUIDToAssetPath(prefabPathGuid);
@@ -90,8 +91,18 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 }
             }
 
-            // Trova tutte le scene nel progetto
+            foreach (string prefabPathGuid in prefabPaths)
+            {
+                string prefabPath = AssetDatabase.GUIDToAssetPath(prefabPathGuid);
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (FixDetector(prefab))
+                {
+                    PrefabUtility.SaveAsPrefabAsset(prefab, prefabPath);
+                }
+            }
+
             string[] scenePaths = AssetDatabase.FindAssets("t:Scene");
+
             foreach (string scenePathGuid in scenePaths)
             {
                 string scenePath = AssetDatabase.GUIDToAssetPath(scenePathGuid);
@@ -101,6 +112,20 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
                     // Trova e sostituisci i componenti nella scena
                     if (ReplaceComponentsInScene())
+                    {
+                        UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+                    }
+                }
+            }
+
+            foreach (string scenePathGuid in scenePaths)
+            {
+                string scenePath = AssetDatabase.GUIDToAssetPath(scenePathGuid);
+                if (!scenePath.StartsWith("Packages/"))
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+
+                    if (FixDetectorsInScene())
                     {
                         UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
                     }
@@ -136,6 +161,47 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
             EditorUtility.DisplayDialog("Success", "Components replaced successfully!", "OK");
         }
+
+        private bool FixDetector(GameObject prefab)
+        {
+            var grabs = prefab.GetComponentsInChildren<ManipulableGrabberDetector>(true);
+            var hovers = prefab.GetComponentsInChildren<VisualScriptingInteractableHoverDetector>(true);
+            foreach (var grab in grabs)
+            {
+                if (grab.interactablePlaceholder != null)
+                {
+                    grab.manipulablePlaceholder = grab.interactablePlaceholder.GetComponentInChildren<ManipulablePlaceholder>(true);
+                    EditorUtility.SetDirty(grab);
+                    EditorUtility.SetDirty(grab.gameObject);
+                }
+            }
+            foreach (var hover in hovers)
+            {
+                if (hover.interactablePlaceholder != null)
+                {
+                    hover.visualscriptingPlaceholder = hover.interactablePlaceholder.GetComponentInChildren<VisualScriptingInteractablePlaceholder>(true);
+                    EditorUtility.SetDirty(hover);
+                    EditorUtility.SetDirty(hover.gameObject);
+                }
+            }
+            return grabs.Length > 0 || hovers.Length > 0;
+        }
+
+        private bool FixDetectorsInScene()
+        {
+            GameObject[] gameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+            bool change = false;
+            foreach (GameObject gameObject in gameObjects)
+            {
+                if (FixDetector(gameObject))
+                {
+                    change = true;
+                    Debug.LogError("Found detectors in " + gameObject.name + " in scene " + gameObject.scene.name, gameObject);
+                }
+            }
+            return change;
+        }
+
 
         private bool ReplaceComponentsInScene()
         {
@@ -217,6 +283,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 manipulablePlaceholder.RealignDurationTimeInSeconds = interactable.RealignDurationTimeInSeconds;
                 manipulablePlaceholder.VrInteraction = interactable.VRInteraction;
                 manipulablePlaceholder.AttachTransform = interactable.AttachTransform;
+
                 EditorUtility.SetDirty(manipulablePlaceholder);
             }
             else
@@ -234,6 +301,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 vsPlaceholder.VRAllowedStates = interactable.VRAllowedStates;
                 vsPlaceholder.InteractionsScriptMachine = interactable.InteractionsScriptMachine;
                 vsPlaceholder.VrVisualScriptingInteraction = interactable.VrVisualScriptingInteraction;
+
                 EditorUtility.SetDirty(vsPlaceholder);
             }
             else
