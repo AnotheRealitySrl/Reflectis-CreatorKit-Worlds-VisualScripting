@@ -86,7 +86,14 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             {
                 foreach (var unit in unselectOnDestroyEventUnits)
                 {
-                    await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
+                    try
+                    {
+                        await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"Error on unit {unit} on {gameObject.name} on destroy: {e.Message}", unselectOnDestroyScriptMachine.gameObject);
+                    }
                 }
             }
             if (unselectOnDestroyScriptMachine != null && unselectOnDestroyScriptMachine.gameObject != null)
