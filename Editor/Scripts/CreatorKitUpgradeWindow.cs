@@ -248,7 +248,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             UnityEditor.Undo.RecordObject(interactable.gameObject, "Replace Component");
 
-            InteractionPlaceholder interactionPlaceholder = interactable.gameObject.GetOrAddComponent<InteractionPlaceholder>();
+            InteractablePlaceholder interactionPlaceholder = interactable.gameObject.GetOrAddComponent<InteractablePlaceholder>();
 
             interactionPlaceholder.LockHoverDuringInteraction = interactable.LockHoverDuringInteraction;
             interactionPlaceholder.InteractionColliders = interactable.InteractionColliders;
