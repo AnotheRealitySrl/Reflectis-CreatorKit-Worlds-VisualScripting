@@ -1,4 +1,5 @@
 using Reflectis.CreatorKit.Worlds.Placeholders;
+using Reflectis.SDK.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,6 +77,7 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
         private void ReplaceInteractablePlaceholder()
         {
             string activeScenePath = "" + UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().path;
+
             // Trova e sostituisci i componenti nei prefabs
             string[] prefabPaths = AssetDatabase.FindAssets("t:Prefab");
             foreach (string prefabPathGuid in prefabPaths)
@@ -88,7 +90,6 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 }
             }
 
-
             // Trova tutte le scene nel progetto
             string[] scenePaths = AssetDatabase.FindAssets("t:Scene");
             foreach (string scenePathGuid in scenePaths)
@@ -100,6 +101,31 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
                     // Trova e sostituisci i componenti nella scena
                     if (ReplaceComponentsInScene())
+                    {
+                        UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+                    }
+                }
+            }
+
+            foreach (string prefabPathGuid in prefabPaths)
+            {
+                string prefabPath = AssetDatabase.GUIDToAssetPath(prefabPathGuid);
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (DestroyOldComponentInPrefab(prefab))
+                {
+                    PrefabUtility.SaveAsPrefabAsset(prefab, prefabPath);
+                }
+            }
+
+            foreach (string scenePathGuid in scenePaths)
+            {
+                string scenePath = AssetDatabase.GUIDToAssetPath(scenePathGuid);
+                if (!scenePath.StartsWith("Packages/"))
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
+
+                    // Trova e sostituisci i componenti nella scena
+                    if (DestroyOldComponentInScene())
                     {
                         UnityEditor.SceneManagement.EditorSceneManager.SaveScene(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
                     }
@@ -132,7 +158,6 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
         private bool ReplaceComponentRecursive(GameObject gameObject)
         {
-
             InteractablePlaceholderObsolete[] interactables = gameObject.GetComponents<InteractablePlaceholderObsolete>();
             bool modified = false;
             foreach (var interactable in interactables)
@@ -157,24 +182,31 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
 
             UnityEditor.Undo.RecordObject(interactable.gameObject, "Replace Component");
 
-            InteractionPlaceholder interactionPlaceholder = interactable.gameObject.AddComponent<InteractionPlaceholder>();
+            InteractionPlaceholder interactionPlaceholder = interactable.gameObject.GetOrAddComponent<InteractionPlaceholder>();
 
             interactionPlaceholder.LockHoverDuringInteraction = interactable.LockHoverDuringInteraction;
             interactionPlaceholder.InteractionColliders = interactable.InteractionColliders;
             interactionPlaceholder.IsNetworked = interactable.IsNetworked;
 
-            EditorUtility.SetDirty(interactionPlaceholder.gameObject);
+            EditorUtility.SetDirty(interactionPlaceholder);
 
             if (interactable.InteractionModes.HasFlag(Core.Interaction.IInteractable.EInteractableType.ContextualMenuInteractable))
             {
-                ContextualMenuPlaceholder contextualMenuPlaceholder = interactable.gameObject.AddComponent<ContextualMenuPlaceholder>();
+                ContextualMenuPlaceholder contextualMenuPlaceholder = interactable.gameObject.GetOrAddComponent<ContextualMenuPlaceholder>();
                 contextualMenuPlaceholder.ContextualMenuOptions = interactable.ContextualMenuOptions;
-                EditorUtility.SetDirty(contextualMenuPlaceholder.gameObject);
+                EditorUtility.SetDirty(contextualMenuPlaceholder);
+            }
+            else
+            {
+                if (interactionPlaceholder.TryGetComponent<ContextualMenuPlaceholder>(out var cmp))
+                {
+                    DestroyImmediate(cmp, true);
+                }
             }
 
             if (interactable.InteractionModes.HasFlag(Core.Interaction.IInteractable.EInteractableType.Manipulable))
             {
-                ManipulablePlaceholder manipulablePlaceholder = interactable.gameObject.AddComponent<ManipulablePlaceholder>();
+                ManipulablePlaceholder manipulablePlaceholder = interactable.gameObject.GetOrAddComponent<ManipulablePlaceholder>();
                 manipulablePlaceholder.ManipulationMode = interactable.ManipulationMode;
                 manipulablePlaceholder.DynamicAttach = interactable.DynamicAttach;
                 manipulablePlaceholder.AdjustRotationOnRelease = interactable.AdjustRotationOnRelease;
@@ -185,22 +217,74 @@ namespace Reflectis.CreatorKit.Worlds.CoreEditor
                 manipulablePlaceholder.RealignDurationTimeInSeconds = interactable.RealignDurationTimeInSeconds;
                 manipulablePlaceholder.VrInteraction = interactable.VRInteraction;
                 manipulablePlaceholder.AttachTransform = interactable.AttachTransform;
-                EditorUtility.SetDirty(manipulablePlaceholder.gameObject);
+                EditorUtility.SetDirty(manipulablePlaceholder);
+            }
+            else
+            {
+                if (interactionPlaceholder.TryGetComponent<ManipulablePlaceholder>(out var cmp))
+                {
+                    DestroyImmediate(cmp, true);
+                }
             }
 
             if (interactable.InteractionModes.HasFlag(Core.Interaction.IInteractable.EInteractableType.VisualScriptingInteractable))
             {
-                VisualScriptingInteractablePlaceholder vsPlaceholder = interactable.gameObject.AddComponent<VisualScriptingInteractablePlaceholder>();
+                VisualScriptingInteractablePlaceholder vsPlaceholder = interactable.gameObject.GetOrAddComponent<VisualScriptingInteractablePlaceholder>();
                 vsPlaceholder.DesktopAllowedStates = interactable.DesktopAllowedStates;
                 vsPlaceholder.VRAllowedStates = interactable.VRAllowedStates;
                 vsPlaceholder.InteractionsScriptMachine = interactable.InteractionsScriptMachine;
                 vsPlaceholder.VrVisualScriptingInteraction = interactable.VrVisualScriptingInteraction;
-                EditorUtility.SetDirty(vsPlaceholder.gameObject);
+                EditorUtility.SetDirty(vsPlaceholder);
+            }
+            else
+            {
+                if (interactionPlaceholder.TryGetComponent<VisualScriptingInteractablePlaceholder>(out var cmp))
+                {
+                    DestroyImmediate(cmp, true);
+                }
             }
 
             EditorUtility.SetDirty(interactionPlaceholder.gameObject);
 
-            DestroyImmediate(interactable, true);
+        }
+
+        private bool DestroyOldComponentInScene()
+        {
+            GameObject[] gameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+            bool modified = false;
+            foreach (GameObject gameObject in gameObjects)
+            {
+                var isModified = DestroyComponentRecursive(gameObject);
+                modified = modified || isModified;
+            }
+            return modified;
+        }
+
+        private bool DestroyOldComponentInPrefab(GameObject prefab)
+        {
+            var replaced = DestroyComponentRecursive(prefab);
+            return replaced;
+        }
+
+        private bool DestroyComponentRecursive(GameObject gameObject)
+        {
+            InteractablePlaceholderObsolete[] interactables = gameObject.GetComponents<InteractablePlaceholderObsolete>();
+            bool modified = false;
+            foreach (var interactable in interactables)
+            {
+                if (interactable != null)
+                {
+                    DestroyImmediate(interactable, true);
+                    EditorUtility.SetDirty(gameObject);
+                }
+                modified = true;
+            }
+            foreach (Transform child in gameObject.transform)
+            {
+                var isModified = DestroyComponentRecursive(child.gameObject);
+                modified = modified || isModified;
+            }
+            return modified;
         }
     }
 }
