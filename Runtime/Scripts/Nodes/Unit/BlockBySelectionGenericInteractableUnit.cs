@@ -4,11 +4,11 @@ using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis VisualScriptingInteractable: BlockInteractionBySelection")]
-    [UnitSurtitle("VisualScriptingInteractable")]
+    [UnitTitle("Reflectis Interactable: BlockInteractionBySelection")]
+    [UnitSurtitle("Interactable")]
     [UnitShortTitle("BlockInteractionBySelection")]
     [UnitCategory("Reflectis\\Flow")]
-    public class BlockBySelectionVisualScriptingInteractableUnit : Unit
+    public class BlockBySelectionInteractableUnit : Unit
     {
         [DoNotSerialize]
         [PortLabelHidden]
@@ -19,7 +19,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         [NullMeansSelf]
         [DoNotSerialize]
-        public ValueInput VisualScriptingInteractable { get; private set; }
+        public ValueInput Interactable { get; private set; }
 
         [NullMeansSelf]
         [DoNotSerialize]
@@ -27,7 +27,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            VisualScriptingInteractable = ValueInput<IVisualScriptingInteractable>(nameof(VisualScriptingInteractable));
+            Interactable = ValueInput<IInteractable>(nameof(Interactable));
 
             BlockValue = ValueInput<bool>(nameof(BlockValue), false);
 
@@ -36,11 +36,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
                 if (f.GetValue<bool>(BlockValue))
                 {
-                    f.GetValue<IVisualScriptingInteractable>(VisualScriptingInteractable).CurrentBlockedState |= InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IInteractable>(Interactable).CurrentBlockedState |= IInteractable.EBlockedState.BlockedBySelection;
                 }
                 else
                 {
-                    f.GetValue<IVisualScriptingInteractable>(VisualScriptingInteractable).CurrentBlockedState = f.GetValue<IVisualScriptingInteractable>(VisualScriptingInteractable).CurrentBlockedState & ~InteractableBehaviourBase.EBlockedState.BlockedBySelection;
+                    f.GetValue<IInteractable>(Interactable).CurrentBlockedState = f.GetValue<IInteractable>(Interactable).CurrentBlockedState & ~IInteractable.EBlockedState.BlockedBySelection;
                 }
                 return OutputTrigger;
             });

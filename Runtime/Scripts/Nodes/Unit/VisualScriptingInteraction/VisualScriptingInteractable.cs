@@ -53,7 +53,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 currentInteractionState = value;
                 if (currentInteractionState == EVisualScriptingInteractableState.Idle)
                 {
-                    InteractableRef.InteractionState = IInteractable.EInteractionState.Idle;
+                    InteractableRef.IsHovered = false;
                 }
             }
         }
@@ -305,7 +305,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             return;
         }
         #endregion
-        public override async void OnHoverStateEntered()
+        public async void OnHoverStateEntered()
         {
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState)
@@ -320,7 +320,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         }
 
-        public override async void OnHoverStateExited()
+        public async void OnHoverStateExited()
         {
             //if (!CanInteract || !hasHoveredState)
             if (CurrentBlockedState != 0 || !hasHoveredState
@@ -340,14 +340,14 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             await Task.WhenAll(hoverExitUnitsTask);
         }
 
-        public override async Task EnterInteractionState()
+        public async Task EnterInteractionState()
         {
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
             if (!SkipSelectState)
             {
-                await base.EnterInteractionState();
+                base.EnterInteractionState();
 
                 CurrentInteractionState = EVisualScriptingInteractableState.SelectEntering;
 
@@ -367,13 +367,13 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             }
         }
 
-        public override async Task ExitInteractionState()
+        public async Task ExitInteractionState()
         {
             //if (!CanInteract)
             if (CurrentBlockedState != 0)
                 return;
 
-            await base.ExitInteractionState();
+            base.ExitInteractionState();
 
             if (!SkipSelectState)
             {
