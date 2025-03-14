@@ -22,6 +22,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     //[RequireComponent(typeof(BaseInteractable))]
     public abstract class VisualScriptingInteractable : InteractableBehaviourBase, IInteractableBehaviour, IVisualScriptingInteractable
     {
+        private static VisualScriptingInteractable nextSelectedInteractable;
+
+        private static VisualScriptingInteractable selectedInteractable;
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
@@ -338,6 +341,67 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             });
 
             await Task.WhenAll(hoverExitUnitsTask);
+        }
+
+        public async void OnInteract()
+        {
+            if (skipSelectState)
+            {
+                _ = Interact();
+                return;
+            }
+            if (selectedInteractable != null) //if entering another object interaction await for its completion
+            {
+                if (selectedInteractable != this)
+                {
+                    nextSelectedInteractable = this;
+                }
+                while (selectedInteractable.CurrentInteractionState == EVisualScriptingInteractableState.SelectEntering)
+                {
+                    await Task.Yield();
+                }
+            }
+            //the user clicked on another interactable object while exiting the current one
+            //this object is not interesting anymore
+            //the other object will call the select state
+            if (nextSelectedInteractable != this)
+            {
+                return;
+            }
+            if (selectedInteractable != this)
+            {
+                //Exit current selected interactable if not in transition
+                if (selectedInteractable != null)
+                {
+                    //if we already exiting the interaction wait until the exit is completed
+                    if (selectedInteractable.CurrentInteractionState == EVisualScriptingInteractableState.SelectExiting)
+                    {
+                        while (selectedInteractable != null)
+                        {
+                            await Task.Yield();
+                        }
+                    }
+                    //otherwise exit the current selection
+                    else
+                    {
+                        await selectedInteractable.ExitInteractionState();
+                        //SelectedInteractable?.OnHoverStateExited();
+                        selectedInteractable = null;
+                    }
+                }
+                if (nextSelectedInteractable == this)
+                {
+                    return;
+                }
+
+                selectedInteractable = this;
+                await EnterInteractionState();
+
+            }
+            else
+            {
+                _ = Interact();
+            }
         }
 
         public async Task EnterInteractionState()
