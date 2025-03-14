@@ -30,7 +30,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             CMUser = ValueInput<CMUser>(nameof(CMUser), null).NullMeansSelf();
 
-            ID = ValueOutput(nameof(ID), (flow) => flow.GetValue<CMUser>(CMUser).ID);
+            ID = ValueOutput(nameof(ID), (flow) => flow.GetValue<CMUser>(CMUser).Id);
 
             Name = ValueOutput(nameof(Name), (flow) => flow.GetValue<CMUser>(CMUser).DisplayName);
 
