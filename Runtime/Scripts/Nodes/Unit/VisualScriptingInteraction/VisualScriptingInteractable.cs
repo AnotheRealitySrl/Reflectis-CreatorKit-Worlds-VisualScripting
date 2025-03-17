@@ -22,9 +22,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     //[RequireComponent(typeof(BaseInteractable))]
     public abstract class VisualScriptingInteractable : InteractableBehaviourBase, IInteractableBehaviour, IVisualScriptingInteractable
     {
-        private static VisualScriptingInteractable nextSelectedInteractable;
 
-        private static VisualScriptingInteractable selectedInteractable;
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
@@ -136,7 +134,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                     hasHoveredState = VRAllowedStates.HasFlag(EAllowedVisualScriptingInteractableState.Hovered);
                     break;
             }
-
+            Debug.LogError("Setup" + gameObject, gameObject);
             if (interactionScriptMachine != null)
             {
                 if (interactionScriptMachine.graph != null)
@@ -146,23 +144,24 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                         if (unit is HoverEnterEventUnit hoverEnterEventUnit)
                         {
                             hoverEnterEventUnits.Add(hoverEnterEventUnit);
+                            Debug.LogError("foundUnit" + gameObject, gameObject);
                         }
                         if (unit is HoverExitEventUnit hoverExitEventUnit)
                         {
-                            hoverExitEventUnits.Add(hoverExitEventUnit);
+                            hoverExitEventUnits.Add(hoverExitEventUnit); Debug.LogError("foundUnit" + gameObject, gameObject);
                         }
                         if (unit is SelectEnterEventUnit selectEnterEventUnit)
                         {
-                            selectEnterEventUnits.Add(selectEnterEventUnit);
+                            selectEnterEventUnits.Add(selectEnterEventUnit); Debug.LogError("foundUnit" + gameObject, gameObject);
                         }
                         if (unit is SelectExitEventUnit selectExitEventUnit)
                         {
-                            selectExitEventUnits.Add(selectExitEventUnit);
+                            selectExitEventUnits.Add(selectExitEventUnit); Debug.LogError("foundUnit" + gameObject, gameObject);
                             SetupOnDestroy(selectExitEventUnit);
                         }
                         if (unit is InteractEventUnit interactEventUnit)
                         {
-                            interactEventUnits.Add(interactEventUnit);
+                            interactEventUnits.Add(interactEventUnit); Debug.LogError("foundUnit" + gameObject, gameObject);
                         }
                     }
                 }
@@ -343,65 +342,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             await Task.WhenAll(hoverExitUnitsTask);
         }
 
-        public async void OnInteract()
+
+        public void OnInteract()
         {
-            if (skipSelectState)
-            {
-                _ = Interact();
-                return;
-            }
-            if (selectedInteractable != null) //if entering another object interaction await for its completion
-            {
-                if (selectedInteractable != this)
-                {
-                    nextSelectedInteractable = this;
-                }
-                while (selectedInteractable.CurrentInteractionState == EVisualScriptingInteractableState.SelectEntering)
-                {
-                    await Task.Yield();
-                }
-            }
-            //the user clicked on another interactable object while exiting the current one
-            //this object is not interesting anymore
-            //the other object will call the select state
-            if (nextSelectedInteractable != this)
-            {
-                return;
-            }
-            if (selectedInteractable != this)
-            {
-                //Exit current selected interactable if not in transition
-                if (selectedInteractable != null)
-                {
-                    //if we already exiting the interaction wait until the exit is completed
-                    if (selectedInteractable.CurrentInteractionState == EVisualScriptingInteractableState.SelectExiting)
-                    {
-                        while (selectedInteractable != null)
-                        {
-                            await Task.Yield();
-                        }
-                    }
-                    //otherwise exit the current selection
-                    else
-                    {
-                        await selectedInteractable.ExitInteractionState();
-                        //SelectedInteractable?.OnHoverStateExited();
-                        selectedInteractable = null;
-                    }
-                }
-                if (nextSelectedInteractable == this)
-                {
-                    return;
-                }
-
-                selectedInteractable = this;
-                await EnterInteractionState();
-
-            }
-            else
-            {
-                _ = Interact();
-            }
+            SM.GetSystem<IVisualScriptingInteractionSystem>().SelectInteractable(this);
         }
 
         public async Task EnterInteractionState()
@@ -411,7 +355,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 return;
             if (!SkipSelectState)
             {
-                base.EnterInteractionState();
+                InteractableRef.IsInteracted = true;
 
                 CurrentInteractionState = EVisualScriptingInteractableState.SelectEntering;
 
@@ -437,7 +381,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             if (CurrentBlockedState != 0)
                 return;
 
-            base.ExitInteractionState();
+            InteractableRef.IsInteracted = false;
 
             if (!SkipSelectState)
             {
