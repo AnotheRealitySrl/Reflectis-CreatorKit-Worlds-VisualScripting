@@ -1,0 +1,303 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2165566169222110035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5283061391667862125}
+  - component: {fileID: 2326717260959020487}
+  - component: {fileID: 3994233671824134227}
+  - component: {fileID: 4135613566587736919}
+  - component: {fileID: 4689508558848499071}
+  - component: {fileID: 819270958078913058}
+  m_Layer: 0
+  m_Name: MultiQuizController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5283061391667862125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165566169222110035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6202329251258094624}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2326717260959020487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165566169222110035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"MultiQuizID","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"stepID","value":{"$content":"1","$type":"System.String"},"typeHandle":{"Identification":"System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"listOfQuizs","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"NetworkedChosenQuizIndex","value":{"$content":-1,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"NetworkedQuizState","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"TaskQuizStart","value":null,"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"TaskQuizResults","value":null,"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"ExperienceIDManager","value":null,"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"CallbackGO","value":null,"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!114 &3994233671824134227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165566169222110035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 0f5283473603a0140b3ec0eca7059677, type: 2}
+--- !u!114 &4135613566587736919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165566169222110035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 982d4b6656cc8ad42b174b929bdfb5f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  automaticSetup: 1
+  initializationId: 0
+  <IsNetworked>k__BackingField: 1
+  ownershipRequestType: 0
+  syncTransform: 0
+  assetID: 
+  instanceID: 
+--- !u!114 &4689508558848499071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165566169222110035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c6ae009709eed43a96051c4eee57d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  variableSettings:
+  - id: 0
+    name: NetworkedQuizState
+    saveThroughSessions: 0
+    hasChanged: 0
+  - id: 0
+    name: NetworkedChosenQuizIndex
+    saveThroughSessions: 0
+    hasChanged: 0
+--- !u!114 &819270958078913058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165566169222110035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cb82c271496d240828ff3d74935e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revertGameObjectActivation: 0
+  revertParent: 0
+  revertPose: 0
+  revertScale: 0
+  revertComponentsActivation: 0
+  revertComponents: []
+  revertRigidbody: 0
+  customRevertEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1001 &1899390265884230908
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5283061391667862125}
+    m_Modifications:
+    - target: {fileID: 84188352554356731, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192637808587061308, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: _data._json
+      value: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"quizPanel","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"openQuizPosition","value":{"x":0.0,"y":0.0,"z":0.0,"$type":"UnityEngine.Vector3"},"typeHandle":{"Identification":"UnityEngine.Vector3,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"hiddenQuizPosition","value":{"x":-999.0,"y":-999.0,"z":-999.0,"$type":"UnityEngine.Vector3"},"typeHandle":{"Identification":"UnityEngine.Vector3,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"quizReady","value":{"$content":false,"$type":"System.Boolean"},"typeHandle":{"Identification":"System.Boolean,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"confirmPopup","value":{"$content":1,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"callbackGO","value":{"$content":2,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+        UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192637808587061308, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: _data._objectReferences.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192637808587061308, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: _data._objectReferences.Array.data[2]
+      value: 
+      objectReference: {fileID: 2165566169222110035}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571075115538160561, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: instanceID
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664882214809157488, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_Name
+      value: QuizContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01418121
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01418121
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.01418121
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228172587625096282, guid: f741f3c21f3a37246b186ef7c1c53e12,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f741f3c21f3a37246b186ef7c1c53e12, type: 3}
+--- !u!4 &6202329251258094624 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5496895088784937180, guid: f741f3c21f3a37246b186ef7c1c53e12,
+    type: 3}
+  m_PrefabInstance: {fileID: 1899390265884230908}
+  m_PrefabAsset: {fileID: 0}

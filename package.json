@@ -17,6 +17,11 @@
       "displayName": "Splines module",
       "description": "Contains nodes and event units that work with the splines packages of the Unity registry",
       "path": "Samples~/Splines"
+    },
+    {
+      "displayName": "Quiz module",
+      "description": "Contains nodes and prefabs that work with the Quizs and analytics logic of the reflectis packages",
+      "path": "Samples~/Quizs"
     }
   ]
 }
