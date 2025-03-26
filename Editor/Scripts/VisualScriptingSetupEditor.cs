@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using Reflectis.SDK.Core.Editor;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
                 BoltCore.Configuration.typeOptions.RemoveAt(0);
             }
 
-            var _typeOptionsMetadata = BoltCore.Configuration.GetMetadata(nameof(BoltCore.Configuration.typeOptions));
+            PluginConfigurationItemMetadata _typeOptionsMetadata = BoltCore.Configuration.GetMetadata(nameof(BoltCore.Configuration.typeOptions));
 
             if (_typeOptionsMetadata.defaultValue is List<Type> defaultTypes)
             {
@@ -59,20 +60,18 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
                     BoltCore.Configuration.typeOptions.Add(type);
                     //Debug.Log($"Add {type.FullName} to Visual Scripting type options.");
                 }
-
             }
-
             var typeOptionsMetadata = BoltCore.Configuration.GetMetadata(nameof(BoltCore.Configuration.typeOptions));
             typeOptionsMetadata.Save();
-            BoltCore.Configuration.Save();
+            BoltCore.Configuration.SaveProjectSettingsAsset(true);
             Codebase.UpdateSettings();
             UnitBase.Rebuild();
         }
 
         private static IEnumerable<Type> GetCustomTypes()
         {
-            VisualScriptingCustomTypeCollector[] customTypeCollectors = Resources.FindObjectsOfTypeAll<VisualScriptingCustomTypeCollector>();
-
+            UnityEditor.AssetDatabase.Refresh();
+            List<VisualScriptingCustomTypeCollector> customTypeCollectors = AssetDatabaseExtension.SearchAssetByType<VisualScriptingCustomTypeCollector>();
             List<Type> customTypes = new();
             foreach (var customTypeCollector in customTypeCollectors)
             {
@@ -80,6 +79,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
             }
             return customTypes;
         }
+
+
     }
+
+
 }
 #endif
