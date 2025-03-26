@@ -164,6 +164,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         private bool FixDetector(GameObject prefab)
         {
+#if REFLECTIS_CREATOR_KIT_WORLDS_TASKS
             var grabs = prefab.GetComponentsInChildren<ManipulableGrabberDetector>(true);
             var hovers = prefab.GetComponentsInChildren<VisualScriptingInteractableHoverDetector>(true);
             foreach (var grab in grabs)
@@ -185,6 +186,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 }
             }
             return grabs.Length > 0 || hovers.Length > 0;
+#else
+            return false;
+#endif
+
         }
 
         private bool FixDetectorsInScene()
