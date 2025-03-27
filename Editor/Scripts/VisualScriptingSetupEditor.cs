@@ -7,8 +7,6 @@ using Unity.VisualScripting;
 
 using UnityEditor;
 
-using UnityEngine;
-
 namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 {
     public static class VisualScriptingSetupEditor
@@ -46,7 +44,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
             {
                 if (type == null)
                 {
-                    Debug.LogError("Found Null type!");
+                    //Debug.LogError("Found Null type!");
                     continue;
                 }
                 if (!BoltCore.Configuration.typeOptions.Contains(type))
