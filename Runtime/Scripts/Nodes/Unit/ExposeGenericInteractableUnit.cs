@@ -32,7 +32,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             InteractionState = ValueOutput(nameof(InteractionState), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).CurrentInteractionState);
 
-            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).Interactable.InteractionColliders);
+            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).Interactable.ActiveInteractionColliders);
         }
     }
 }

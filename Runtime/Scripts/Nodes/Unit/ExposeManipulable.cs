@@ -38,7 +38,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<IManipulable>(Manipulable).Interactable.GameObjectRef);
 
-            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IManipulable>(Manipulable).Interactable.InteractionColliders);
+            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IManipulable>(Manipulable).Interactable.ActiveInteractionColliders);
 
             IsManipulated = ValueOutput(nameof(IsManipulated), (flow) => flow.GetValue<IManipulable>(Manipulable).CurrentInteractionState == EManipulableState.Manipulating);
 
