@@ -20,7 +20,7 @@
     },
     {
       "displayName": "Quiz module",
-      "description": "Contains nodes and prefabs that work with the Quizs and analytics logic of the reflectis packages",
+      "description": "Contains nodes and prefabs that work with the Quizs and analytics logic of the reflectis packages. In order to use this sample you need to install the Task and analytics packages",
       "path": "Samples~/Quizs"
     }
   ]
