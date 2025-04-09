@@ -1,5 +1,4 @@
 using Reflectis.CreatorKit.Worlds.Core.ClientModels;
-using Reflectis.SDK.Core.NetworkingSystem;
 using Reflectis.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 
@@ -29,14 +28,14 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
                 SM.GetSystem<IClientModelSystem>().EnableShard(f.GetValue<bool>(Open));
-                if (f.GetValue<bool>(Open))
-                {
-                    SM.GetSystem<INetworkingSystem>().OpenCurrentShard();
-                }
-                else
-                {
-                    SM.GetSystem<INetworkingSystem>().CloseCurrentShard();
-                }
+                //if (f.GetValue<bool>(Open))
+                //{
+                //    SM.GetSystem<INetworkingSystem>().OpenCurrentShard();
+                //}
+                //else
+                //{
+                //    SM.GetSystem<INetworkingSystem>().CloseCurrentShard();
+                //}
                 return OutputTrigger;
             });
 
