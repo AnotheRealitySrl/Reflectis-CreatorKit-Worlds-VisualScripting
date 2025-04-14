@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using Reflectis.SDK.Core.Editor;
+
 using System;
 using System.Collections.Generic;
 
@@ -30,7 +31,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
             }
         }
 
-        [MenuItem("Reflectis/Setup Visual Scripting Nodes")]
+        [MenuItem("Reflectis Worlds/Creator Kit/Visual Scripting/Setup Visual Scripting Nodes")]
         public static void Setup()
         {
             if (!VSUsageUtility.isVisualScriptingUsed)
