@@ -1,7 +1,9 @@
 using Reflectis.SDK.Core;
 using Reflectis.SDK.Core.NetworkingSystem;
 using Reflectis.SDK.Core.SystemFramework;
+using Reflectis.SDK.Core.VisualScripting;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -9,7 +11,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("Networking")]
     [UnitShortTitle("On Other Player Entered")]
     [UnitCategory("Events\\Reflectis")]
-    public class OnOtherPlayerEnteredEventNode : EventUnit<(int, string)>
+    public class OnOtherPlayerEnteredEventNode : UnityEventUnit<(int, string), PlayerData>
     {
         public static string eventName = "NetworkingOnOtherPlayerEntered";
 
@@ -19,20 +21,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         public ValueOutput SessionId { get; private set; }
         protected override bool register => true;
 
-        protected GraphReference graphReference;
-
         public override EventHook GetHook(GraphReference reference)
         {
-            graphReference = reference;
-
             return new EventHook(eventName);
-        }
-
-        public override void Instantiate(GraphReference instance)
-        {
-            base.Instantiate(instance);
-
-            SM.GetSystem<INetworkingSystem>().OnOtherPlayerJoinShard.AddListener(OnPlayerEntered);
         }
 
         protected override void Definition()
@@ -48,15 +39,15 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             flow.SetValue(SessionId, args.Item2);
         }
 
-        private void OnPlayerEntered(PlayerData playerData)
+
+        protected override UnityEvent<PlayerData> GetEvent(GraphReference reference)
         {
-            Trigger(graphReference, (playerData.UserId, playerData.SessionId));
+            return SM.GetSystem<INetworkingSystem>().OnOtherPlayerJoinShard;
         }
 
-        public override void Uninstantiate(GraphReference instance)
+        protected override (int, string) GetArguments(GraphReference reference, PlayerData playerData)
         {
-            base.Uninstantiate(instance);
-            SM.GetSystem<INetworkingSystem>().OnOtherPlayerJoinShard.RemoveListener(OnPlayerEntered);
+            return (playerData.UserId, playerData.SessionId);
         }
     }
 }

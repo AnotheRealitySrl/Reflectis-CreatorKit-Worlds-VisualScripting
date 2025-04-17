@@ -1,8 +1,7 @@
 using Reflectis.CreatorKit.Worlds.Placeholders;
-
+using Reflectis.SDK.Core.VisualScripting;
 using Unity.VisualScripting;
-
-using UnityEngine;
+using UnityEngine.Events;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -11,11 +10,8 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitShortTitle("On Video Played")]
     [UnitCategory("Events\\Reflectis")]
 
-    public class OnVideoPlayedEventUnit : EventUnit<BigScreenPlaceholder>
+    public class OnVideoPlayedEventUnit : UnityEventUnit<BigScreenPlaceholder>
     {
-        private GraphReference graphReference;
-        private BigScreenPlaceholder bigScreenReference;
-
         protected override bool register => true;
 
         protected override void Definition()
@@ -26,21 +22,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         public override EventHook GetHook(GraphReference reference)
         {
-            graphReference = reference;
-            RegisterToBigScreenPlay(reference.gameObject);
-
             return new EventHook("BigScreen" + this.ToString().Split("EventUnit")[0]);
         }
 
-        private void RegisterToBigScreenPlay(GameObject gameObject)
+        protected override UnityEvent GetEvent(GraphReference reference)
         {
-            bigScreenReference = gameObject.GetComponent<BigScreenPlaceholder>();
-            bigScreenReference.onVideoPlayed.AddListener(OnVideoPlayed);
+            return reference.gameObject.GetComponent<BigScreenPlaceholder>().onVideoPlayed;
         }
 
-        private void OnVideoPlayed()
+        protected override BigScreenPlaceholder GetArguments(GraphReference reference)
         {
-            Trigger(graphReference, bigScreenReference);
+            return reference.gameObject.GetComponent<BigScreenPlaceholder>();
         }
     }
 }
