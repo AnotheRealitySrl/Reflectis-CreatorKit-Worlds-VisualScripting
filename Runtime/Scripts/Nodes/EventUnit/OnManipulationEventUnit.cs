@@ -79,6 +79,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             return reference.gameObject.GetComponent<IManipulable>();
         }
 
-        protected abstract void OnManipulableStateChange(EManipulableState manipulableState);
+        protected override UnityAction<EManipulableState> GetData(GraphReference reference)
+        {
+            return (x) =>
+            {
+                if (ShouldTriggerOnChange(x))
+                {
+                    Trigger(reference, GetArguments(reference, x));
+                }
+            };
+        }
+
+        protected abstract bool ShouldTriggerOnChange(EManipulableState manipulableState);
     }
 }
