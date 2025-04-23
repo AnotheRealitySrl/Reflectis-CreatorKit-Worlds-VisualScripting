@@ -1,7 +1,8 @@
 using Reflectis.CreatorKit.Worlds.Core.Interaction;
 using Reflectis.SDK.Core.SystemFramework;
-
+using Reflectis.SDK.Core.VisualScripting;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -9,15 +10,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("VisualScriptingInteractable")]
     [UnitShortTitle("On Selected Change")]
     [UnitCategory("Events\\Reflectis")]
-    public class OnSelectedVisualScriptingInteractableChange : EventUnit<VisualScriptingInteractable>
+    public class OnSelectedVisualScriptingInteractableChange : UnityEventUnit<VisualScriptingInteractable, IVisualScriptingInteractable>
     {
         [DoNotSerialize]
         public ValueOutput VisualScriptingInteractable { get; private set; }
         protected override bool register => true;
-
-        protected GraphReference graphReference;
-
-        protected VisualScriptingInteractable interactableReference;
 
         protected override void Definition()
         {
@@ -28,34 +25,22 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void AssignArguments(Flow flow, VisualScriptingInteractable data)
         {
-            flow.SetValue(VisualScriptingInteractable, interactableReference);
+            flow.SetValue(VisualScriptingInteractable, data);
         }
 
         public override EventHook GetHook(GraphReference reference)
         {
-            graphReference = reference;
-
             return new EventHook("VisualScriptingInteractable" + this.ToString().Split("EventUnit")[0]);
         }
 
-        public override void Instantiate(GraphReference instance)
+        protected override UnityEvent<IVisualScriptingInteractable> GetEvent(GraphReference reference)
         {
-            base.Instantiate(instance);
-
-            SM.GetSystem<IVisualScriptingInteractionSystem>().OnSelectedInteractableChange.AddListener(OnSelectedChange);
+            return SM.GetSystem<IVisualScriptingInteractionSystem>().OnSelectedInteractableChange;
         }
 
-        public override void Uninstantiate(GraphReference instance)
+        protected override VisualScriptingInteractable GetArguments(GraphReference reference, IVisualScriptingInteractable eventData)
         {
-            base.Uninstantiate(instance);
-
-            SM.GetSystem<IVisualScriptingInteractionSystem>().OnSelectedInteractableChange.RemoveListener(OnSelectedChange);
-        }
-
-        private void OnSelectedChange(IVisualScriptingInteractable newSelection)
-        {
-            interactableReference = newSelection as VisualScriptingInteractable;
-            Trigger(graphReference, interactableReference);
+            return eventData as VisualScriptingInteractable;
         }
     }
 }
