@@ -18,7 +18,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            CMEnvironment = ValueOutput(nameof(CMEnvironment), (f) => SM.GetSystem<IClientModelSystem>().CurrentEvent.Environment);
+            CMEnvironment = ValueOutput(nameof(CMEnvironment), (f) => SM.GetSystem<IClientModelSystem>().CurrentEvent.Experience.Environment);
         }
     }
 }

@@ -41,8 +41,8 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 return;
             }
 
-            CMEvent staticEvent = staticEvents.Find(
-                x => x.Environment.AddressableKey == flow.GetValue<string>(SceneAddressableName));
+            CMSession staticEvent = staticEvents.Find(
+                x => x.Experience.Environment.AddressableKey == flow.GetValue<string>(SceneAddressableName));
 
             if (staticEvent != null && staticEvent.CanJoin)
             {
