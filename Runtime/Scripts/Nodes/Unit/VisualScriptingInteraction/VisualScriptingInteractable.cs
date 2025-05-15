@@ -82,6 +82,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             {
                 return;
             }
+
             if (!IsIdleState && CurrentInteractionState != EVisualScriptingInteractableState.SelectExiting)
             {
                 foreach (var unit in unselectOnDestroyEventUnits)
@@ -174,6 +175,24 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 DontDestroyOnLoad(go);
                 unselectOnDestroyScriptMachine = go.AddComponent<ScriptMachine>();
                 unselectOnDestroyScriptMachine.nest.SwitchToEmbed(new FlowGraph());
+
+
+
+                //adds the CheckChangeSyncedVariable to the visual scripting change variable callback that triggers every time any variable changes.
+                PropertyInfo prop = unselectOnDestroyScriptMachine.graph.GetType().GetProperty("variables");
+
+                var current = (VariableDeclarations)prop.GetValue(unselectOnDestroyScriptMachine.graph);
+
+                MethodInfo setter = prop.GetSetMethod(true); // `true` per ottenere anche metodi non pubblici
+
+                var newList = new VariableDeclarations();
+                foreach (var variable in InteractionScriptMachine.graph.variables)
+                {
+                    newList.Set(variable.name, variable.value);
+                }
+
+                setter.Invoke(unselectOnDestroyScriptMachine.graph, new object[] { newList });
+
             }
             SelectExitEventUnit newSelectExitUnit = CopyScriptMachineUnit(unselectOnDestroyScriptMachine, unselectUnit) as SelectExitEventUnit;
             unselectOnDestroyEventUnits.Add(newSelectExitUnit);
@@ -184,6 +203,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             if (!scriptMachine.graph.units.Any(x => x.guid.Equals(unit.guid)))
             {
                 IUnit newUnit = CloneUnit(unit);
+                newUnit.guid = unit.guid;
                 scriptMachine.graph.units.Add(newUnit);
 
                 foreach (var port in unit.ports)
@@ -252,9 +272,27 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 clonedUnit = new SubgraphUnit(subgraphUnit.nest.macro);
             }
 
-            // Creiamo una nuova istanza dell'unità
+            // Find method CopyFrom() and use it to create a copy of the original unit
 
-            // Copiamo tutte le proprietà pubbliche da originalConnection a clonedConnection
+            MethodInfo copyFromMethod = unitType.GetMethod("CopyFrom", BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { unitType }, null);
+
+            if (copyFromMethod != null)
+            {
+                try
+                {
+                    copyFromMethod.Invoke(clonedUnit, new object[] { originalUnit });
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Failed to invoke Unit.CopyFrom on {unitType.FullName}: {ex}");
+                }
+            }
+            else
+            {
+                Debug.LogError($"Unit.CopyFrom(Unit) method not found via reflection on type {unitType.FullName}.");
+            }
+
+
             foreach (var field in unitType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 if (field.Name.Equals("graph"))
@@ -264,21 +302,21 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 field.SetValue(clonedUnit, field.GetValue(originalUnit));
             }
 
-            // Copiamo anche le proprietà di tipo complesso tramite Reflection, se necessario
             foreach (var property in unitType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 if (property.Name.Equals("graph"))
                 {
                     continue;
                 }
-                if (property.CanWrite)
+
+                var originalDefaultValues = property.GetValue(originalUnit);
+                MethodInfo methodInfo = property.GetSetMethod(true);
+
+                if (methodInfo != null)
                 {
-                    property.SetValue(clonedUnit, property.GetValue(originalUnit));
+                    methodInfo.Invoke(clonedUnit, new object[] { originalDefaultValues });
                 }
             }
-
-
-
             return clonedUnit;
         }
 
