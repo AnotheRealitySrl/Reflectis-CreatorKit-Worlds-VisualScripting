@@ -22,6 +22,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     //[RequireComponent(typeof(BaseInteractable))]
     public abstract class VisualScriptingInteractable : InteractableBehaviourBase, IInteractableBehaviour, IVisualScriptingInteractable
     {
+        public static List<GameObject> OnDestroyObjects = new List<GameObject>();
 
         [SerializeField] private ScriptMachine interactionScriptMachine = null;
 
@@ -82,17 +83,27 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             {
                 return;
             }
-
-            if (!IsIdleState && CurrentInteractionState != EVisualScriptingInteractableState.SelectExiting)
-            {
-                foreach (var unit in unselectOnDestroyEventUnits)
-                {
-                    await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
-                }
-            }
             if (unselectOnDestroyScriptMachine != null && unselectOnDestroyScriptMachine.gameObject != null)
             {
-                Destroy(unselectOnDestroyScriptMachine.gameObject);
+                try
+                {
+                    if (!IsIdleState && CurrentInteractionState != EVisualScriptingInteractableState.SelectExiting)
+                    {
+                        foreach (var unit in unselectOnDestroyEventUnits)
+                        {
+                            await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Error while executing unselect on {unselectOnDestroyScriptMachine.gameObject}: {e} ");
+                }
+                finally
+                {
+                    OnDestroyObjects.Remove(unselectOnDestroyScriptMachine.gameObject);
+                    Destroy(unselectOnDestroyScriptMachine.gameObject);
+                }
             }
 
             if (this == SM.GetSystem<IVisualScriptingInteractionSystem>().SelectedInteractable as VisualScriptingInteractable)
@@ -176,8 +187,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 unselectOnDestroyScriptMachine = go.AddComponent<ScriptMachine>();
                 unselectOnDestroyScriptMachine.nest.SwitchToEmbed(new FlowGraph());
 
-
-
                 //adds the CheckChangeSyncedVariable to the visual scripting change variable callback that triggers every time any variable changes.
                 PropertyInfo prop = unselectOnDestroyScriptMachine.graph.GetType().GetProperty("variables");
 
@@ -193,6 +202,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
                 setter.Invoke(unselectOnDestroyScriptMachine.graph, new object[] { newList });
 
+                OnDestroyObjects.Add(unselectOnDestroyScriptMachine.gameObject);
             }
             SelectExitEventUnit newSelectExitUnit = CopyScriptMachineUnit(unselectOnDestroyScriptMachine, unselectUnit) as SelectExitEventUnit;
             unselectOnDestroyEventUnits.Add(newSelectExitUnit);
@@ -471,7 +481,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 if (Application.isPlaying)
                 {
                     EditorGUILayout.LabelField($"<b>Current state:</b> {interactable.CurrentInteractionState}", style);
-                    //EditorGUILayout.LabelField($"<b>Can interact:</b> {interactable.CanInteract}", style);
                 }
             }
         }
