@@ -33,16 +33,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var staticEvents = await clientModelSystem.GetStaticEvents();
-
-            if (staticEvents.Count == 0 || staticEvents == null)
-            {
-                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] No static event available.");
-                return;
-            }
-
-            CMSession staticEvent = staticEvents.Find(
-                x => x.Experience.Environment.AddressableKey == flow.GetValue<string>(SceneAddressableName));
+            var staticEvent = await clientModelSystem.GetStaticEventByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
             if (staticEvent != null && staticEvent.CanJoin)
             {

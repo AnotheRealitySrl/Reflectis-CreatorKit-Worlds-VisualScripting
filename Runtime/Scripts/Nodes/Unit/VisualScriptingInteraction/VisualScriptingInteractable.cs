@@ -59,8 +59,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             }
         }
 
-
-
         protected bool hasHoveredState = false;
         private bool skipSelectState = false;
         private bool hasInteractState = false;
@@ -85,25 +83,26 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             }
             if (unselectOnDestroyScriptMachine != null && unselectOnDestroyScriptMachine.gameObject != null)
             {
-                try
+                if (!IsIdleState && CurrentInteractionState != EVisualScriptingInteractableState.SelectExiting)
                 {
-                    if (!IsIdleState && CurrentInteractionState != EVisualScriptingInteractableState.SelectExiting)
+                    try
                     {
+                        OnDestroyObjects.Add(unselectOnDestroyScriptMachine.gameObject);
                         foreach (var unit in unselectOnDestroyEventUnits)
                         {
                             await unit.AwaitableTrigger(unselectOnDestroyScriptMachine.GetReference().AsReference(), this);
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"Error while executing unselect on {unselectOnDestroyScriptMachine.gameObject}: {e} ");
+                    }
+                    finally
+                    {
+                        OnDestroyObjects.Remove(unselectOnDestroyScriptMachine.gameObject);
+                    }
                 }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Error while executing unselect on {unselectOnDestroyScriptMachine.gameObject}: {e} ");
-                }
-                finally
-                {
-                    OnDestroyObjects.Remove(unselectOnDestroyScriptMachine.gameObject);
-                    Destroy(unselectOnDestroyScriptMachine.gameObject);
-                }
+                Destroy(unselectOnDestroyScriptMachine.gameObject);
             }
 
             if (this == SM.GetSystem<IVisualScriptingInteractionSystem>().SelectedInteractable as VisualScriptingInteractable)
@@ -202,7 +201,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
                 setter.Invoke(unselectOnDestroyScriptMachine.graph, new object[] { newList });
 
-                OnDestroyObjects.Add(unselectOnDestroyScriptMachine.gameObject);
             }
             SelectExitEventUnit newSelectExitUnit = CopyScriptMachineUnit(unselectOnDestroyScriptMachine, unselectUnit) as SelectExitEventUnit;
             unselectOnDestroyEventUnits.Add(newSelectExitUnit);
