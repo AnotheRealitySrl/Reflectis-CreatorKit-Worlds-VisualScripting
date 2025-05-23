@@ -25,6 +25,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
             List<Type> types = new List<Type>();
             foreach (TextAsset textAsset in customTypeTexts)
             {
+                // If the textAsset is null or missing, skip it without feedback.
+                if (!textAsset)
+                    continue;
+
                 foreach (var typeName in textAsset.GetTextTypes())
                 {
                     types.Add(TypeExtensions.GetTypeFromString(typeName));

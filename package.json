@@ -1,7 +1,7 @@
 {
   "name": "com.anotherealitysrl.reflectis-creatorkit-worlds-visualscripting",
   "displayName": "Reflectis-CreatorKit-Worlds-VisualScripting",
-  "version": "1.1.0",
+  "version": "1.3.1",
   "unity": "2020.1",
   "description": "Reflectis CreatorKit Worlds VisualScripting module",
   "keywords": [
@@ -11,5 +11,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/AnotheRealitySrl/Reflectis-CreatorKit-Worlds-VisualScripting"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Splines module",
+      "description": "Contains nodes and event units that work with the splines packages of the Unity registry",
+      "path": "Samples~/Splines"
+    },
+    {
+      "displayName": "Quiz module",
+      "description": "Contains nodes and prefabs that work with the Quizs and analytics logic of the reflectis packages. In order to use this sample you need to install the Task and analytics packages",
+      "path": "Samples~/Quizs"
+    }
+  ]
 }

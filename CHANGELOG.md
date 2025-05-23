@@ -1,5 +1,15 @@
 # Release notes
 
+## v1.2.0
+
+### Added
+
+- Added new visual scripting nodes to activate fade from black and fade to black routines.
+  
+### Fixed 
+
+- Fixed shard closing logic.
+
 ## v1.1.0
 
 ### Added

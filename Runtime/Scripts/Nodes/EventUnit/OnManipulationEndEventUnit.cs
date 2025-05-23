@@ -10,12 +10,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitCategory("Events\\Reflectis")]
     public class OnManipulationEndEventUnit : OnManipulationEventUnit
     {
-        protected override void OnManipulableStateChange(EManipulableState manipulableState)
+        protected override bool ShouldTriggerOnChange(EManipulableState manipulableState)
         {
-            if (manipulableState == EManipulableState.Idle)
-            {
-                Trigger(graphReference, manipulableReference);
-            }
+            return manipulableState == EManipulableState.Idle;
         }
 
     }
