@@ -10,7 +10,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitSurtitle("VisualScriptingInteractable")]
     [UnitShortTitle("On Selected Change")]
     [UnitCategory("Events\\Reflectis")]
-    public class OnSelectedVisualScriptingInteractableChange : UnityEventUnit<VisualScriptingInteractable, IVisualScriptingInteractable>
+    public class OnSelectedVisualScriptingInteractableChange : UnityEventUnit<IVisualScriptingInteractable, IVisualScriptingInteractable>
     {
         [DoNotSerialize]
         public ValueOutput VisualScriptingInteractable { get; private set; }
@@ -38,9 +38,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             return SM.GetSystem<IVisualScriptingInteractionSystem>().OnSelectedInteractableChange;
         }
 
-        protected override VisualScriptingInteractable GetArguments(GraphReference reference, IVisualScriptingInteractable eventData)
+        protected override IVisualScriptingInteractable GetArguments(GraphReference reference, IVisualScriptingInteractable eventData)
         {
-            return eventData as VisualScriptingInteractable;
+            return eventData;
         }
     }
 }
