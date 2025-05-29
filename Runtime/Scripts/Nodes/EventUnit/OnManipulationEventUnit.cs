@@ -47,7 +47,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             var manipulableReference = gameObject.GetComponent<IManipulable>();
             if (manipulableReference == null)
             {
-                if (gameObject.TryGetComponent<InteractablePlaceholder>(out var interactablePlaceholder) && ((interactablePlaceholder.InteractionModes & EInteractableType.Manipulable) == EInteractableType.Manipulable))
+                if (gameObject.TryGetComponent<ManipulablePlaceholder>(out var _))
                 {
                     manipulableReference = gameObject.GetComponent<IManipulable>();
                     while (manipulableReference == null)
