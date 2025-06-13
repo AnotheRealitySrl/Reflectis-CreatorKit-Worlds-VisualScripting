@@ -35,7 +35,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             var staticEvent = await clientModelSystem.GetStaticEventByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
-            if (staticEvent != null && staticEvent.CanJoin)
+            if (staticEvent != null)
             {
                 await IReflectisApplicationManager.Instance.JoinEvent(staticEvent.Id);
             }
