@@ -33,11 +33,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var staticEvent = await clientModelSystem.GetStaticEventByAddressableName(flow.GetValue<string>(SceneAddressableName));
+            var staticEvent = await clientModelSystem.GetStaticSessionByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
             if (staticEvent != null)
             {
-                await IReflectisApplicationManager.Instance.JoinEvent(staticEvent.Id);
+                await IReflectisApplicationManager.Instance.JoinSession(staticEvent.Id);
             }
             else
             {
