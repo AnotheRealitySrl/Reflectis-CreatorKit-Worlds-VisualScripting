@@ -2,7 +2,6 @@ using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
 using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.VisualScripting;
-
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
@@ -33,17 +32,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var staticEvent = await clientModelSystem.GetStaticSessionByAddressableName(flow.GetValue<string>(SceneAddressableName));
+            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
-            if (staticEvent != null)
+            if (experience != null)
             {
-                await IReflectisApplicationManager.Instance.JoinSession(staticEvent.Id);
+                await IReflectisApplicationManager.Instance.JoinExperience(experience, true);
             }
             else
             {
                 Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified " +
-                    $"for the environment is not correct or the event is not flagged as " +
-                    $"static, or the event cannot be joined");
+                    $"for the environment is not correct or the experience is not flagged as " +
+                    $"public");
             }
         }
     }
