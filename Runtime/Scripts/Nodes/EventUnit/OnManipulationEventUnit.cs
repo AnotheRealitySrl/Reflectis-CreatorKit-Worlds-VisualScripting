@@ -1,13 +1,11 @@
 using Reflectis.CreatorKit.Worlds.Core.Interaction;
 using Reflectis.CreatorKit.Worlds.Placeholders;
+using Reflectis.SDK.Core.Utilities;
 using Reflectis.SDK.Core.VisualScripting;
-using System.Threading.Tasks;
 
 using Unity.VisualScripting;
-
 using UnityEngine;
 using UnityEngine.Events;
-using static Reflectis.CreatorKit.Worlds.Core.Interaction.IInteractable;
 using static Reflectis.CreatorKit.Worlds.Core.Interaction.IManipulable;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
@@ -30,48 +28,33 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             flow.SetValue(Manipulable, data);
         }
 
-        public override async void Instantiate(GraphReference instance)
-        {
-            await AwaitManipulableSetup(instance.gameObject);
-
-            base.Instantiate(instance);
-        }
-
         public override EventHook GetHook(GraphReference reference)
         {
             return new EventHook("Manipulable" + this.ToString().Split("EventUnit")[0]);
         }
 
-        private async Task AwaitManipulableSetup(GameObject gameObject)
-        {
-            var manipulableReference = gameObject.GetComponent<IManipulable>();
-            if (manipulableReference == null)
-            {
-                if (gameObject.TryGetComponent<ManipulablePlaceholder>(out var _))
-                {
-                    manipulableReference = gameObject.GetComponent<IManipulable>();
-                    while (manipulableReference == null)
-                    {
-                        await Task.Yield();
-                        manipulableReference = gameObject.GetComponent<IManipulable>();
-                    }
-                }
-            }
-            if (manipulableReference == null)
-            {
-                Debug.LogError("The unit " + this.ToString().Split("EventUnit")[0] + "in the graph on the game object " + gameObject + " needs a proper interactable placeholder" +
-                    " on the game object to function.");
-            }
-        }
 
         protected override UnityEvent<EManipulableState> GetEvent(GraphReference reference)
         {
-            var manipulableReference = reference.gameObject.GetComponent<IManipulable>();
-            if (manipulableReference == null)
+            var manipulablePlaceholderReference = reference.gameObject.transform.GetComponentInactive<ManipulablePlaceholder>();
+            //If we do not find the placeholder we try to find the manipulable component directly on the gameObject.
+            if (manipulablePlaceholderReference == null)
             {
+                var imanipulable = reference.gameObject.transform.GetComponentInChildren<IManipulable>(true);
+                if (imanipulable is Component manipulable)
+                {
+                    if (manipulable.gameObject == reference.gameObject)
+                    {
+                        return imanipulable.OnCurrentStateChange;
+                    }
+                }
+                Debug.LogError($"There is no manipulable placeholder or manipulable attached to the gameObject {reference.gameObject}! " +
+                                   $"The node {this.ToString().Split("EventUnit")[0]} will not be called on this gameobject.", reference.gameObject);
                 return new UnityEvent<EManipulableState>();
+
             }
-            return manipulableReference.OnCurrentStateChange;
+
+            return manipulablePlaceholderReference.OnCurrentStateChange;
         }
 
         protected override IManipulable GetArguments(GraphReference reference, EManipulableState state)
