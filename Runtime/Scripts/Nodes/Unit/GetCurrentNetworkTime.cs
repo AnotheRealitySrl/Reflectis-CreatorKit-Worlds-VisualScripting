@@ -1,9 +1,11 @@
+using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.NetworkingSystem;
 using Reflectis.SDK.Core.SystemFramework;
 
 using System.Collections.Generic;
 
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -20,11 +22,12 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         private List<Flow> runningFlows = new List<Flow>();
 
-        private double networkedTime;
-
         protected override void Definition()
         {
-            NetworkedTime = ValueOutput<double>(nameof(NetworkedTime), f => SM.GetSystem<INetworkingSystem>().GetSharedNetworkTime());
+            if (SM.GetSystem<IClientModelSystem>().CurrentSession.Multiplayer)
+                NetworkedTime = ValueOutput<double>(nameof(NetworkedTime), f => SM.GetSystem<INetworkingSystem>().GetSharedNetworkTime());
+            else
+                NetworkedTime = ValueOutput<double>(nameof(NetworkedTime), f => Time.time);
         }
 
     }
