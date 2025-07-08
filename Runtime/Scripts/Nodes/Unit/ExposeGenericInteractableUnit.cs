@@ -28,11 +28,11 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             Interactable = ValueInput<IVisualScriptingInteractable>(nameof(Interactable), null).NullMeansSelf();
 
-            GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).Interactable.GameObjectRef);
+            GameObjectReference = ValueOutput(nameof(GameObjectReference), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable)?.Interactable?.GameObjectRef);
 
-            InteractionState = ValueOutput(nameof(InteractionState), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).CurrentInteractionState);
+            InteractionState = ValueOutput(nameof(InteractionState), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable)?.CurrentInteractionState);
 
-            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable).Interactable.Colliders);
+            InteractionColliders = ValueOutput(nameof(InteractionColliders), (flow) => flow.GetValue<IVisualScriptingInteractable>(Interactable)?.Interactable?.Colliders);
         }
     }
 }
