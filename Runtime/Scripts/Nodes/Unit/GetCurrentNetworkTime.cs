@@ -1,3 +1,4 @@
+using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
 using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.NetworkingSystem;
 using Reflectis.SDK.Core.SystemFramework;
@@ -24,12 +25,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            if (SM.GetSystem<IClientModelSystem>().CurrentSession.Multiplayer)
-                NetworkedTime = ValueOutput<double>(nameof(NetworkedTime), f => SM.GetSystem<INetworkingSystem>().GetSharedNetworkTime());
-            else
-                NetworkedTime = ValueOutput<double>(nameof(NetworkedTime), f => Time.time);
-        }
+            NetworkedTime = ValueOutput<double>(nameof(NetworkedTime), f =>
+            {
+                if (IReflectisApplicationManager.Instance.State == SDK.Core.ApplicationManagement.EApplicationState.Online
+                && SM.GetSystem<IClientModelSystem>().CurrentSession.Multiplayer)
+                {
+                    return SM.GetSystem<INetworkingSystem>().GetSharedNetworkTime();
+                }
+                return Time.time;
+            });
 
+        }
     }
 }
 
