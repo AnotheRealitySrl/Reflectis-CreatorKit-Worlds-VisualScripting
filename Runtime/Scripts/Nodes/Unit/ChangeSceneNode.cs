@@ -40,7 +40,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             }
             else
             {
-                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified " +
+                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified {flow.GetValue<string>(SceneAddressableName)} " +
                     $"for the environment is not correct or the experience is not flagged as " +
                     $"public");
             }
