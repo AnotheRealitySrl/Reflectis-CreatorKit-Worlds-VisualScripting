@@ -1,5 +1,15 @@
 # Release notes
 
+## v2.0.0
+
+### Changed
+
+- Revised nodes to match the new structure experiences/sessions.
+
+### Added
+
+- Added `GetCurrentNetworkTime` node to get network time.
+
 ## v1.2.0
 
 ### Added
