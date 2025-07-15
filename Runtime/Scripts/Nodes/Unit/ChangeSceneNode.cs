@@ -2,7 +2,6 @@ using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
 using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.VisualScripting;
-
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
@@ -33,26 +32,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var staticEvents = await clientModelSystem.GetStaticEvents();
+            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
-            if (staticEvents.Count == 0 || staticEvents == null)
+            if (experience != null)
             {
-                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] No static event available.");
-                return;
-            }
-
-            CMEvent staticEvent = staticEvents.Find(
-                x => x.Environment.AddressableKey == flow.GetValue<string>(SceneAddressableName));
-
-            if (staticEvent != null && staticEvent.CanJoin)
-            {
-                await IReflectisApplicationManager.Instance.JoinEvent(staticEvent.Id);
+                await IReflectisApplicationManager.Instance.JoinExperience(experience, true);
             }
             else
             {
-                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified " +
-                    $"for the environment is not correct or the event is not flagged as " +
-                    $"static, or the event cannot be joined");
+                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified {flow.GetValue<string>(SceneAddressableName)} " +
+                    $"for the environment is not correct or the experience is not flagged as " +
+                    $"public");
             }
         }
     }

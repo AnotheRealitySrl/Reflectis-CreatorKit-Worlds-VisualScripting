@@ -24,13 +24,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         [DoNotSerialize]
         public ValueOutput EndDateTime { get; private set; }
         [DoNotSerialize]
-        public ValueOutput CategoryID { get; private set; }
-        [DoNotSerialize]
-        public ValueOutput CategoryName { get; private set; }
-        [DoNotSerialize]
-        public ValueOutput SubcategoryID { get; private set; }
-        [DoNotSerialize]
-        public ValueOutput SubcategoryName { get; private set; }
+        public ValueOutput Tags { get; private set; }
         [DoNotSerialize]
         public ValueOutput IsEventPublic { get; private set; }
         [DoNotSerialize]
@@ -38,29 +32,21 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            CMEvent = ValueInput<CMEvent>(nameof(CMEvent), null).NullMeansSelf();
+            CMEvent = ValueInput<CMSession>(nameof(CMEvent), null).NullMeansSelf();
 
-            ID = ValueOutput(nameof(ID), (flow) => flow.GetValue<CMEvent>(CMEvent).Id);
+            ID = ValueOutput(nameof(ID), (flow) => flow.GetValue<CMSession>(CMEvent).Id);
 
-            Title = ValueOutput(nameof(Title), (flow) => flow.GetValue<CMEvent>(CMEvent).Title);
+            Title = ValueOutput(nameof(Title), (flow) => flow.GetValue<CMSession>(CMEvent).Experience.Title);
 
-            Description = ValueOutput(nameof(Description), (flow) => flow.GetValue<CMEvent>(CMEvent).Description);
+            Description = ValueOutput(nameof(Description), (flow) => flow.GetValue<CMSession>(CMEvent).Experience.Description);
 
-            StartDateTime = ValueOutput(nameof(StartDateTime), (flow) => flow.GetValue<CMEvent>(CMEvent).StartDateTime);
+            StartDateTime = ValueOutput(nameof(StartDateTime), (flow) => flow.GetValue<CMSession>(CMEvent).StartDateTime);
 
-            EndDateTime = ValueOutput(nameof(EndDateTime), (flow) => flow.GetValue<CMEvent>(CMEvent).EndDateTime);
+            EndDateTime = ValueOutput(nameof(EndDateTime), (flow) => flow.GetValue<CMSession>(CMEvent).EndDateTime);
 
-            CategoryID = ValueOutput(nameof(CategoryID), (flow) => flow.GetValue<CMEvent>(CMEvent).Category.ID);
+            Tags = ValueOutput(nameof(Tags), (flow) => flow.GetValue<CMSession>(CMEvent).Tags);
 
-            CategoryName = ValueOutput(nameof(CategoryName), (flow) => flow.GetValue<CMEvent>(CMEvent).Category.Name);
-
-            SubcategoryID = ValueOutput(nameof(SubcategoryID), (flow) => flow.GetValue<CMEvent>(CMEvent).SubCategory.ID);
-
-            SubcategoryName = ValueOutput(nameof(SubcategoryName), (flow) => flow.GetValue<CMEvent>(CMEvent).SubCategory.Name);
-
-            IsEventPublic = ValueOutput(nameof(IsEventPublic), (flow) => flow.GetValue<CMEvent>(CMEvent).IsPublic);
-
-            IsEventStatic = ValueOutput(nameof(IsEventStatic), (flow) => flow.GetValue<CMEvent>(CMEvent).StaticEvent);
+            IsEventPublic = ValueOutput(nameof(IsEventPublic), (flow) => flow.GetValue<CMSession>(CMEvent).IsPublic);
         }
     }
 }

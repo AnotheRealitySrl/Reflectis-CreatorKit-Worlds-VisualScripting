@@ -31,7 +31,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             SyncedObject = ValueInput<SyncedObject>(nameof(SyncedObject), null).NullMeansSelf();
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                if (!SM.GetSystem<IClientModelSystem>().CurrentEvent.Multiplayer
+                if (!SM.GetSystem<IClientModelSystem>().CurrentSession.Multiplayer
                 || !f.GetValue<SyncedObject>(SyncedObject).IsNetworked
                 || f.GetValue<SyncedObject>(SyncedObject).OnCheckOwnershipFunction())
                 {

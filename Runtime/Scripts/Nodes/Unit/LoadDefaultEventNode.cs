@@ -1,9 +1,9 @@
-using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
 using Reflectis.SDK.Core.VisualScripting;
 
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -15,7 +15,8 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     {
         protected override async Task AwaitableAction(Flow flow)
         {
-            await IReflectisApplicationManager.Instance.LoadDefaultEvent();
+            Debug.LogWarning($"[LoadDefaultEventNode] Default events are deprecated. The execution of this node will be ignored.");
+            //await IReflectisApplicationManager.Instance.LoadDefaultEvent();
         }
     }
 }
