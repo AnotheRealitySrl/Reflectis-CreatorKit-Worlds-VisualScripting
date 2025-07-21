@@ -41,7 +41,12 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                     {
                         return flow.GetConvertedValue(x) as Field;
                     });
-                    return new CustomType() { fields = customFields.ToArray() };
+                    CustomType customType = new CustomType();
+                    foreach (var field in customFields)
+                    {
+                        customType.Fields[field.name] = field.value;
+                    }
+                    return customType;
                 });
 
             CustomFields = new List<ValueInput>();
