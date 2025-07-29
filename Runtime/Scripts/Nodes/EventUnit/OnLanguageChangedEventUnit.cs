@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.CreatorKit.Worlds.Tasks
+namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Localization: On Language Changed")]
     [UnitSurtitle("Localization")]
