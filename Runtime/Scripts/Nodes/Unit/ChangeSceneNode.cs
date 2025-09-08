@@ -2,6 +2,7 @@ using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
 using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.VisualScripting;
+
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
@@ -21,9 +22,15 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         [PortLabelHidden]
         public ValueInput SceneAddressableName { get; private set; }
 
+        [NullMeansSelf]
+        [DoNotSerialize]
+        [PortLabelHidden]
+        public ValueInput IsTenantEnvironment { get; private set; }
+
         protected override void Definition()
         {
             SceneAddressableName = ValueInput<string>(nameof(SceneAddressableName));
+            IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment));
 
             base.Definition();
         }
@@ -32,7 +39,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName));
+            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName), flow.GetValue<bool>(IsTenantEnvironment));
 
             if (experience != null)
             {
