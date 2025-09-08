@@ -30,7 +30,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         protected override void Definition()
         {
             SceneAddressableName = ValueInput<string>(nameof(SceneAddressableName));
-            IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment));
+            IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
 
             base.Definition();
         }
