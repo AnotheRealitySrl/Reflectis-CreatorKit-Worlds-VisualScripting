@@ -2,7 +2,6 @@ using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
 using Reflectis.CreatorKit.Worlds.Core.ClientModels;
 using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.VisualScripting;
-
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
@@ -11,26 +10,23 @@ using UnityEngine;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Platform: Change Scene")]
+    [UnitTitle("Reflectis Platform: Check Scene Availability")]
     [UnitSurtitle("Platform")]
-    [UnitShortTitle("Change Scene")]
+    [UnitShortTitle("Check Scene Availability")]
     [UnitCategory("Reflectis\\Flow")]
-    public class ChangeSceneNode : AwaitableUnit
+    public class CheckSceneAvailabilityNode : AwaitableUnit
     {
         [NullMeansSelf]
         [DoNotSerialize]
         [PortLabelHidden]
         public ValueInput SceneAddressableName { get; private set; }
-
-        [NullMeansSelf]
-        [DoNotSerialize]
-        [PortLabelHidden]
-        public ValueInput IsTenantEnvironment { get; private set; }
+        public ValueOutput IsAvailable { get; private set; }
+        private bool _isAvailable;
 
         protected override void Definition()
         {
             SceneAddressableName = ValueInput<string>(nameof(SceneAddressableName));
-            IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
+            IsAvailable = ValueOutput<bool>(nameof(IsAvailable), f => _isAvailable);
 
             base.Definition();
         }
@@ -39,17 +35,15 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName), flow.GetValue<bool>(IsTenantEnvironment));
+            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
             if (experience != null)
             {
-                await IReflectisApplicationManager.Instance.JoinExperience(experience, true);
+                _isAvailable = true;
             }
             else
             {
-                Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified {flow.GetValue<string>(SceneAddressableName)} " +
-                    $"for the environment is not correct or the experience is not flagged as " +
-                    $"public");
+                _isAvailable = false;
             }
         }
     }

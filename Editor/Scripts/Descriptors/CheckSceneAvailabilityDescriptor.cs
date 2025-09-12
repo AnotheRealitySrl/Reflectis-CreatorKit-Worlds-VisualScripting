@@ -1,16 +1,17 @@
 using Unity.VisualScripting;
 
+
 namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 {
-    [Descriptor(typeof(ChangeSceneNode))]
-    public class ChangeSceneNodeDescriptor : UnitDescriptor<ChangeSceneNode>
+    [Descriptor(typeof(CheckSceneAvailabilityNode))]
+    public class CheckSceneAvailabilityDescriptor : UnitDescriptor<CheckSceneAvailabilityNode>
     {
-        public ChangeSceneNodeDescriptor(ChangeSceneNode unit) : base(unit) { }
+        public CheckSceneAvailabilityDescriptor(CheckSceneAvailabilityNode unit) : base(unit) { }
 
         protected override string DefinedSummary()
         {
             return "This unit requires a coroutine flow to run properly. This unit will " +
-                "load a static Reflectis event.";
+                "check if an environment scene is available.";
         }
 
         protected override void DefinedPort(IUnitPort port, UnitPortDescription description)
