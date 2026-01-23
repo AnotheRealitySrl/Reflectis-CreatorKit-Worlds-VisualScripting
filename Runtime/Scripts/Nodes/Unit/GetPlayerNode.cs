@@ -1,6 +1,5 @@
 using Reflectis.SDK.Core.Avatars;
 using Reflectis.SDK.Core.SystemFramework;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,15 +17,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         [PortLabelHidden]
         public ValueOutput CharacterTransform { get; private set; }
 
-        public ValueInput UserID { get; private set; }
-
-        private List<Flow> runningFlows = new List<Flow>();
-
         //private Transform _characterReference;
 
         protected override void Definition()
         {
-            UserID = ValueInput<int>(nameof(UserID));
             CharacterTransform = ValueOutput<Transform>(nameof(CharacterTransform), (flow) => SM.GetSystem<AvatarSystem>().AvatarInstance.CharacterReference.transform);
         }
     }
