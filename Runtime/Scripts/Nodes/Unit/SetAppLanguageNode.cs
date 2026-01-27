@@ -35,7 +35,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                Debug.LogError("Language selected is " + LanguageChoice);
                 SM.GetSystem<ILocalizationSystem>().SetLanguage(f.GetValue<string>(LanguageChoice));
 
                 return OutputTrigger;
