@@ -37,6 +37,12 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         public ValueOutput DescriptionValue { get; private set; }
 
         [DoNotSerialize]
+        public ValueOutput QuestionLabel { get; private set; }
+
+        [DoNotSerialize]
+        public ValueOutput QuestionValue { get; private set; }
+
+        [DoNotSerialize]
         public ValueOutput IsMultipleChoice { get; private set; }
 
         [DoNotSerialize]
@@ -94,6 +100,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
                 QuizPlaceholder ans = flow.GetValue<QuizPlaceholder>(Quiz);
                 string locLbl = ans.DescriptionLabel;
                 string locVal = ans.QuizInstanceDescriptionValue;
+
+                return !string.IsNullOrEmpty(locVal) ? locVal : locLbl;
+            });
+
+            QuestionLabel = ValueOutput(nameof(QuestionLabel), (flow) => flow.GetValue<QuizPlaceholder>(Quiz).QuestionLabel);
+
+            QuestionValue = ValueOutput(nameof(QuestionValue), (flow) =>
+            {
+                QuizPlaceholder ans = flow.GetValue<QuizPlaceholder>(Quiz);
+                string locLbl = ans.QuestionLabel;
+                string locVal = ans.QuizInstanceQuestionValue;
 
                 return !string.IsNullOrEmpty(locVal) ? locVal : locLbl;
             });
