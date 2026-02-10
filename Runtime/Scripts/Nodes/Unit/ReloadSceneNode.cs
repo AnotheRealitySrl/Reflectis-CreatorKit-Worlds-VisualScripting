@@ -17,8 +17,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitCategory("Reflectis\\Flow")]
     public class ReloadSceneNode : AwaitableUnit
     {
-        public CMEnvironment SceneAddressableName { get; private set; }
-
         [NullMeansSelf]
         [DoNotSerialize]
         [PortLabelHidden]
@@ -26,7 +24,6 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            SceneAddressableName = SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment;
             IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
 
             base.Definition();
@@ -42,12 +39,12 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             {
                 await IReflectisApplicationManager.Instance.JoinExperience(experience, true);
             }
-            else
+            /*else
             {
                 Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified {SceneAddressableName.Name} " +
                     $"for the environment is not correct or the experience is not flagged as " +
                     $"public");
-            }
+            }*/
         }
     }
 }
