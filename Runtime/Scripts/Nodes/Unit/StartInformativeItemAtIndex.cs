@@ -1,6 +1,7 @@
+using Reflectis.CreatorKit.Worlds.Placeholders;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.Tasks
+namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis ControlManager: Start Informative Item at index")]
     [UnitSurtitle("Control Manager")]
