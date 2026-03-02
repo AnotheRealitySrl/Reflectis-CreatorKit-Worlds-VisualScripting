@@ -18,19 +18,14 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitCategory("Reflectis\\Flow")]
     public class SetCameraModeNode : Unit
     {
-        [SerializeAs(nameof(Mode))]
-        private ECameraModes mode = ECameraModes.DefaultCamera;
-
+        [NullMeansSelf]
         [DoNotSerialize]
-        [Inspectable, UnitHeaderInspectable(nameof(mode))]
-        public ECameraModes Mode
-        {
-            get => mode;
-            set => mode = value;
-        }
+        public ValueInput ConstrainedRotation { get; private set; }
 
+        [NullMeansSelf]
         [DoNotSerialize]
-        public List<ValueInput> Arguments { get; private set; }
+        public ValueInput StaticCamera { get; private set; }
+
 
         [DoNotSerialize]
         [PortLabelHidden]
@@ -41,87 +36,15 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
+            ConstrainedRotation = ValueInput<bool>(nameof(ConstrainedRotation),false).NullMeansSelf();
+            StaticCamera = ValueInput<bool>(nameof(StaticCamera), false).NullMeansSelf();
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
-            {
-                Type type = ICharacterControllerSystem.CameraTypes[Mode];
-                var typeInstance = type.Instantiate();
-
-                foreach (var argument in Arguments)
-                {
-                    if (argument.hasValidConnection || argument.hasDefaultValue)
-                    {
-                        var value = f.GetConvertedValue(argument);
-                        if (value != null)
-                        {
-                            //Set field value
-                            type.GetRuntimeFields().FirstOrDefault(x => x.Name.Equals(argument.key))?.SetValue(typeInstance, value);
-                        }
-                    }
-                }
-
-                InputSettings newInput;
-                switch (mode)
-                {
-                    case ECameraModes.DefaultCamera: 
-                        SM.GetSystem<ICharacterControllerSystem>().SetDeafultSettingsAsActive(); 
-                        break;
-
-                    case ECameraModes.StaticCamera:
-                        StaticCameraType staticCameraType = typeInstance as StaticCameraType;
-                        newInput = new InputSettings(false, false, false, false, false, false, false, false, false);
-                        SM.GetSystem<ICharacterControllerSystem>().DisableAllButCamera(newInput);
-                        break;
-
-                    case ECameraModes.RotationCamera:
-                        RotationCameraType rotationType = typeInstance as RotationCameraType;
-                        newInput = new InputSettings(true, false, false, false, rotationType.leftButtonToRotate, !rotationType.leftButtonToRotate, false, false, rotationType.constrainedRotation);
-                        SM.GetSystem<ICharacterControllerSystem>().DisableAllButCamera(newInput);
-                        break;
-
-                    case ECameraModes.CinemaCamera:
-                        newInput = new InputSettings(false, false, false, false, true, true, false, false, false);
-                        SM.GetSystem<ICharacterControllerSystem>().DisableAllButCamera(newInput);
-                        break;
-                }
-                
-
-                return OutputTrigger;
+            {               
+                    InputSettings newInput = new InputSettings(!f.GetValue<bool>(StaticCamera), false, false, false, false, true, false, false, f.GetValue<bool>(ConstrainedRotation));
+                    SM.GetSystem<ICharacterControllerSystem>().DisableAllButCamera(newInput);                                  
+                    return OutputTrigger;
             });
-
-
-            Arguments = new List<ValueInput>();
-
-            Type type = ICharacterControllerSystem.CameraTypes[Mode];
-
-            if (type != null)
-            {
-                foreach (var field in type.GetRuntimeFields())
-                {
-
-                    ValueInput argument;
-
-                    argument = ValueInput(field.FieldType, field.Name);
-
-                    //if ((!field.FieldType.IsValueType && !field.FieldType.IsPrimitive && !field.FieldType.IsClass)
-                    //|| (field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    //|| field.FieldType.IsEnum)
-
-                    if (field.FieldType.IsNullable() && !field.FieldType.IsClass)
-                    {
-                        argument.unit.defaultValues[field.Name] = null;
-                    }
-                    else
-                    {
-                        argument.SetDefaultValue(field.FieldType.Default());
-                    }
-
-
-                    Arguments.Add(argument);
-                    Requirement(argument, InputTrigger);
-
-
-                }
-            }
+           
 
             OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
