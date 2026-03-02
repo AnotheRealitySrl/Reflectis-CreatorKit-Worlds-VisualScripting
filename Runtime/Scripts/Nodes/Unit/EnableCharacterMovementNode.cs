@@ -2,6 +2,7 @@ using Reflectis.SDK.Core.SystemFramework;
 using Reflectis.SDK.Core.CharacterController;
 
 using Unity.VisualScripting;
+using Reflectis.SDK.Core;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
@@ -29,7 +30,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                SM.GetSystem<ICharacterControllerSystem>().EnableCharacterMovement(f.GetValue<bool>(Enable));
+                InputSettings currentSettings = SM.GetSystem<ICharacterControllerSystem>().GetCurrentSettings();
+                currentSettings.EnableWASDInteraction = f.GetValue<bool>(Enable);
+                SM.GetSystem<ICharacterControllerSystem>().EnableCharacterMovement(f.GetValue<bool>(Enable), currentSettings);
                 return OutputTrigger;
             });
 
