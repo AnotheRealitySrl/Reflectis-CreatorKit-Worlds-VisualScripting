@@ -23,7 +23,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                SM.GetSystem<ICharacterControllerSystem>().SetDeafultSettingsAsActive();
+                SM.GetSystem<ICharacterControllerSystem>().SetDefaultSettingsAsActive();
                 return OutputTrigger;
             });
         
