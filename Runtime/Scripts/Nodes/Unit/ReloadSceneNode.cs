@@ -17,16 +17,18 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitCategory("Reflectis\\Flow")]
     public class ReloadSceneNode : AwaitableUnit
     {
-        public CMEnvironment SceneAddressableName { get; private set; }
-
         [NullMeansSelf]
         [DoNotSerialize]
         [PortLabelHidden]
         public ValueInput IsTenantEnvironment { get; private set; }
 
+        /*[NullMeansSelf]
+        [DoNotSerialize]
+        [PortLabelHidden]
+        public ValueInput Multiplayer { get; private set; }*/
+
         protected override void Definition()
         {
-            SceneAddressableName = SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment;
             IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
 
             base.Definition();
@@ -37,17 +39,17 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
             var experience = await clientModelSystem.GetExperienceByAddressableName(SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment.Name, flow.GetValue<bool>(IsTenantEnvironment));
-
+            var multiplayer = SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment.Multiplayer;
             if (experience != null)
             {
-                await IReflectisApplicationManager.Instance.JoinExperience(experience, true);
+                await IReflectisApplicationManager.Instance.JoinExperience(experience, multiplayer);
             }
-            else
+            /*else
             {
                 Debug.LogError($"[Reflectis Creator Kit | Change Scene node] The key specified {SceneAddressableName.Name} " +
                     $"for the environment is not correct or the experience is not flagged as " +
                     $"public");
-            }
+            }*/
         }
     }
 }
