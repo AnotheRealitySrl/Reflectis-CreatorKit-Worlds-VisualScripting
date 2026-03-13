@@ -22,15 +22,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         [PortLabelHidden]
         public ValueInput SceneAddressableName { get; private set; }
 
-        [NullMeansSelf]
-        [DoNotSerialize]
-        [PortLabelHidden]
-        public ValueInput IsTenantEnvironment { get; private set; }
-
         protected override void Definition()
         {
             SceneAddressableName = ValueInput<string>(nameof(SceneAddressableName));
-            IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
 
             base.Definition();
         }
@@ -39,7 +33,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName), flow.GetValue<bool>(IsTenantEnvironment));
+            var experience = await clientModelSystem.GetExperienceByAddressableName(flow.GetValue<string>(SceneAddressableName));
 
             if (experience != null)
             {

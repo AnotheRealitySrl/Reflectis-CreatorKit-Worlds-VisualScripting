@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 using Unity.VisualScripting;
 
-using UnityEngine;
-
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Platform: Reload Scene")]
@@ -17,10 +15,10 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
     [UnitCategory("Reflectis\\Flow")]
     public class ReloadSceneNode : AwaitableUnit
     {
-        [NullMeansSelf]
-        [DoNotSerialize]
-        [PortLabelHidden]
-        public ValueInput IsTenantEnvironment { get; private set; }
+        //[NullMeansSelf]
+        //[DoNotSerialize]
+        //[PortLabelHidden]
+        //public ValueInput IsTenantEnvironment { get; private set; }
 
         /*[NullMeansSelf]
         [DoNotSerialize]
@@ -29,7 +27,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
         protected override void Definition()
         {
-            IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
+            //IsTenantEnvironment = ValueInput<bool>(nameof(IsTenantEnvironment), false);
 
             base.Definition();
         }
@@ -38,7 +36,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         {
             var clientModelSystem = SM.GetSystem<IClientModelSystem>();
 
-            var experience = await clientModelSystem.GetExperienceByAddressableName(SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment.Name, flow.GetValue<bool>(IsTenantEnvironment));
+            var experience = await clientModelSystem.GetExperienceByAddressableName(SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment.Name/*, flow.GetValue<bool>(IsTenantEnvironment)*/);
             var multiplayer = SM.GetSystem<IClientModelSystem>().CurrentSession.Experience.Environment.Multiplayer;
             if (experience != null)
             {
