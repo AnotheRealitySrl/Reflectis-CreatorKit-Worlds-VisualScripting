@@ -4,6 +4,16 @@
 
 ### Fixed
 
+- Fixed change scene node priority
+
+### Removed
+
+- Removed tenant bool on change scene node
+
+## v2.1.1
+
+### Fixed
+
 - Fixed missing references in `ChatBotSelectUnit` and `ChatBotDeselectUnit`.
 
 ## v2.1.0
