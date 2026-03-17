@@ -1,5 +1,26 @@
 # Release notes
 
+## v2.2.0
+
+### Added
+- Added SetCameraModeNode to handle camera behaviour
+- Added control manager end node
+- Added on control manager end node
+- Added EndInformativeItem node
+- Added StartInformativeItem node
+- Added OnControlTaskStart node
+- Added HoverInformativeItem node
+- Added GetStringFromKey node for localization purposes
+- Added get player head node
+- Added get player hand node
+- Added change language node
+- Added field to quizInstanceNode to show question label
+- Added animated screen canvas to show hints with control manager
+- Added cinemachine
+
+### Fixed
+- Fixed reload scene node
+
 ## v2.1.1
 
 ### Fixed
