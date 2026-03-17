@@ -30,9 +30,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                InputSettings currentSettings = SM.GetSystem<ICharacterControllerSystem>().GetCurrentSettings();
-                currentSettings.EnableWASDInteraction = f.GetValue<bool>(Enable);
-                SM.GetSystem<ICharacterControllerSystem>().EnableCharacterMovement(f.GetValue<bool>(Enable), currentSettings);
+                InputSettings currentUserSettings = SM.GetSystem<ICharacterControllerSystem>().GetCurrentSettings();
+
+                SM.GetSystem<ICharacterControllerSystem>().EnableCharacterMovement(f.GetValue<bool>(Enable), currentUserSettings);
                 return OutputTrigger;
             });
 
