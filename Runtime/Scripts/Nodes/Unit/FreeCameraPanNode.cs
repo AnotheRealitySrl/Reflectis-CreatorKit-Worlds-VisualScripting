@@ -25,6 +25,9 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         public ValueInput MaxZoom { get; private set; }
 
         [NullMeansSelf]
+        public ValueInput MinZoom { get; private set; }
+
+        [NullMeansSelf]
         public ValueInput MaxYRotation { get; private set; }
 
         [NullMeansSelf]
@@ -33,7 +36,8 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         protected override void Definition()
         {
             TargetTransform = ValueInput<Transform>(nameof(TargetTransform));
-            MaxZoom = ValueInput<float>(nameof(MaxZoom), 0.3f);
+            MaxZoom = ValueInput<float>(nameof(MaxZoom), 0.0001f);
+            MinZoom = ValueInput<float>(nameof(MinZoom), 1f);
             MaxYRotation = ValueInput<float>(nameof(MaxYRotation), 45f);
             MinYRotation = ValueInput<float>(nameof(MinYRotation), -45f);
 
@@ -43,7 +47,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         protected override async Task AwaitableAction(Flow flow)
         {
             await SM.GetSystem<ICharacterControllerSystem>().GoToInteractState(flow.GetValue<Transform>(TargetTransform), flow.GetValue<float>(MaxZoom),
-                flow.GetValue<float>(MaxYRotation), flow.GetValue<float>(MinYRotation), true);
+                flow.GetValue<float>(MinZoom), flow.GetValue<float>(MaxYRotation), flow.GetValue<float>(MinYRotation), true);
         }
     }
 }
