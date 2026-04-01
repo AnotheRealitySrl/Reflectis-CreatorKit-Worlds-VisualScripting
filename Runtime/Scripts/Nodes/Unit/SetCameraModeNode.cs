@@ -40,7 +40,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
             StaticCamera = ValueInput<bool>(nameof(StaticCamera), false).NullMeansSelf();
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {               
-                    InputSettings newInput = new InputSettings(!f.GetValue<bool>(StaticCamera), false, false, false, f.GetValue<bool>(ConstrainedRotation));
+                    InputSettings newInput = new InputSettings(!f.GetValue<bool>(StaticCamera), false, !f.GetValue<bool>(StaticCamera), !f.GetValue<bool>(StaticCamera), f.GetValue<bool>(ConstrainedRotation));
                     SM.GetSystem<ICharacterControllerSystem>().DisableAllButCamera(newInput);                                  
                     return OutputTrigger;
             });
