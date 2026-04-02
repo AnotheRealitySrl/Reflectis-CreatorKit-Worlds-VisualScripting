@@ -10,8 +10,8 @@ using UnityEngine;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Character: FreeCameraPan")]
-    [UnitSurtitle("Character")]
+    [UnitTitle("Reflectis Camera: FreeCameraPan")]
+    [UnitSurtitle("Camera")]
     [UnitShortTitle("FreeCameraPan")]
     [UnitCategory("Reflectis\\Flow")]
     public class FreeCameraPanNode : AwaitableUnit
@@ -33,13 +33,23 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         [NullMeansSelf]
         public ValueInput MinYRotation { get; private set; }
 
+        [NullMeansSelf]
+        public ValueInput MaxXRotation { get; private set; }
+
+        [NullMeansSelf]
+        public ValueInput MinXRotation { get; private set; }
+
         protected override void Definition()
         {
             TargetTransform = ValueInput<Transform>(nameof(TargetTransform));
             MaxZoom = ValueInput<float>(nameof(MaxZoom), 0.0001f);
             MinZoom = ValueInput<float>(nameof(MinZoom), 1f);
-            MaxYRotation = ValueInput<float>(nameof(MaxYRotation), 45f);
-            MinYRotation = ValueInput<float>(nameof(MinYRotation), -45f);
+
+            MaxYRotation = ValueInput<float>(nameof(MaxYRotation), 85f);
+            MinYRotation = ValueInput<float>(nameof(MinYRotation), -85f);
+
+            MaxXRotation = ValueInput<float>(nameof(MaxXRotation), 180f);
+            MinXRotation = ValueInput<float>(nameof(MinXRotation), -180f);
 
             base.Definition();
         }
@@ -47,7 +57,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
         protected override async Task AwaitableAction(Flow flow)
         {
             await SM.GetSystem<ICharacterControllerSystem>().GoToInteractState(flow.GetValue<Transform>(TargetTransform), flow.GetValue<float>(MaxZoom),
-                flow.GetValue<float>(MinZoom), flow.GetValue<float>(MaxYRotation), flow.GetValue<float>(MinYRotation), true);
+                flow.GetValue<float>(MinZoom), flow.GetValue<float>(MaxYRotation), flow.GetValue<float>(MinYRotation), flow.GetValue<float>(MaxXRotation), flow.GetValue<float>(MinXRotation), true);
         }
     }
 }
