@@ -1,6 +1,6 @@
+using Reflectis.CreatorKit.Worlds.Placeholders;
 using Reflectis.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
-using Reflectis.SDK.Inventory;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
