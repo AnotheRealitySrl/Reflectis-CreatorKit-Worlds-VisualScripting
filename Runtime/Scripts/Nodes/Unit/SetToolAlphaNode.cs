@@ -1,14 +1,14 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
+﻿using Reflectis.CreatorKit.Worlds.Placeholders;
 using Reflectis.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis Inventory: Set Alpha")]
+    [UnitTitle("Reflectis Tools: Set Alpha")]
     [UnitSurtitle("SetAlpha")]
     [UnitShortTitle("Set Alpha")]
     [UnitCategory("Reflectis\\Flow")]
-    public class SetInventoryAlphaNode : Unit
+    public class SetToolAlphaNode : Unit
     {
         [DoNotSerialize]
         public ValueInput Alpha { get; private set; }
@@ -27,7 +27,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
 
             InputTrigger = ControlInput(nameof(InputTrigger), (f) =>
             {
-                SM.GetSystem<IInventorySystem>().SetInventoryAlpha(f.GetValue<float>(Alpha));
+                SM.GetSystem<IToolSystem>().SetInventoryAlpha(f.GetValue<float>(Alpha));
 
                 return OutputTrigger;
             });
