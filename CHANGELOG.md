@@ -1,5 +1,14 @@
 # Release notes
 
+## v2.3.0
+
+### Added
+- Added AddPickableToInventoryNode to add items to the inventories
+- Added SetAlphaInventoryNode to change alpha for the inventory canvas
+- Added SpawnSpawnableObjectNode to spawn object locally and via network, both prefabs and scene objects
+- Added SpawnFeedbackCheckNode to spawn a feedback check in webGL
+- Added TaskUIShowIntroNode to show the introduction for the taskSystem
+
 ## v2.2.0
 
 ### Added

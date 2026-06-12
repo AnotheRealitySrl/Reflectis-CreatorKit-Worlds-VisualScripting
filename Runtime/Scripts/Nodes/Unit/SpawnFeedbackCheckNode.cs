@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace Reflectis.CreatorKit.Worlds.VisualScripting
 {
-    [UnitTitle("Reflectis general: Spawn Feedback")]
+    [UnitTitle("Reflectis general: Spawn Feedback (WebGL only)")]
     [UnitSurtitle("General")]
-    [UnitShortTitle("SpawnFeedback")]
+    [UnitShortTitle("SpawnFeedback (WebGL only)")]
     [UnitCategory("Reflectis\\Flow")]
     public class SpawnFeedbackCheckNode : Unit
     {
