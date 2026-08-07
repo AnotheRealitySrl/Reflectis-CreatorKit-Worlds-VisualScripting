@@ -6,6 +6,10 @@
 - Added Mobile control output to CheckPlatformUnit ("Reflectis Platform: Switch"), taken when the experience runs on the Mobile platform
 - Added "Creator Kit update routines/v2026.4.x -> v2026.5.0" editor window: scans every graph asset, prefab and scene under Assets/ for CheckPlatformUnit occurrences, lists them with per-row selection and focus (opens the graph on the node), and connects the Mobile output to the same destination as the WebGL one for all selected nodes. Nodes whose Mobile port was already connected (same or different destination) are reported as clean and not preselected
 
+### Fixed
+- PanAndHideEverything and ExitPanAndShowEverything now gate on the runtime platform: WebGL and Mobile run the existing hide/show chain, VR goes straight to the graph output. In VR the pan itself was already a no-op (CharacterControllerSystem.GoToInteractState/GoToSetMovementState are only overridden by the flat-screen controller), but the three hide nodes ran anyway, so selecting a chatbot or a quiz hid every avatar. Consumers that route VR around the macros themselves are unaffected — this covers the ones that do not, creator-authored graphs in particular
+- CheckPlatformUnit: the fallback taken when the switch resolves no platform now mirrors PlatformSystem.Init and reads the build profile's REFLECTIS_* defines. It previously keyed off UNITY_ANDROID and returned the VR output, which is also the mobile player's define
+
 ## v2.3.0
 
 ### Added

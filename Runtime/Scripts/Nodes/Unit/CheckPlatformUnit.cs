@@ -37,16 +37,19 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting
           case ESupportedPlatform.Mobile:
             return OutputTriggerMobile;
         }
-#if UNITY_WEBGL
-                return OutputTriggerWebGL;
-#endif
-#if UNITY_ANDROID
+        // Fallback when the platform system has not resolved a platform: mirror
+        // PlatformSystem.Init, which reads the build profile's REFLECTIS_* scripting
+        // defines. The previous fallback keyed off UNITY_ANDROID and returned the VR
+        // branch, but that define is also the mobile player's, so a mobile build
+        // reaching this point would take VR decisions.
+#if REFLECTIS_VR
         return OutputTriggerVR;
-#endif
-#if UNITY_IOS
+#elif REFLECTIS_MOBILE
         return OutputTriggerMobile;
-#endif
+#else
+        // ESupportedPlatform has no Desktop entry: the browser build is WebGL.
         return OutputTriggerWebGL;
+#endif
       });
 
       OutputTriggerVR = ControlOutput(nameof(OutputTriggerVR));
