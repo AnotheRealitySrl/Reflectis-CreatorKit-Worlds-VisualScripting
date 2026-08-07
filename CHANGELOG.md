@@ -1,5 +1,11 @@
 # Release notes
 
+## v2.4.0
+
+### Added
+- Added Mobile control output to CheckPlatformUnit ("Reflectis Platform: Switch"), taken when the experience runs on the Mobile platform
+- Added "Creator Kit update routines/v2026.4.x -> v2026.5.0" editor window: scans every graph asset, prefab and scene under Assets/ for CheckPlatformUnit occurrences, lists them with per-row selection and focus (opens the graph on the node), and connects the Mobile output to the same destination as the WebGL one for all selected nodes. Nodes whose Mobile port was already connected (same or different destination) are reported as clean and not preselected
+
 ## v2.3.0
 
 ### Added
