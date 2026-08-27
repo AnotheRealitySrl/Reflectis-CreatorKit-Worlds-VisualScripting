@@ -12,7 +12,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
 {
     public static class VisualScriptingSetupEditor
     {
-        //[MenuItem("Reflectis/Reset Visual Scripting Nodes")]
+        //[MenuItem("Virtuademy/Reset Visual Scripting Nodes")]
         public static void ResetNodes()
         {
             while (BoltCore.Configuration.typeOptions.Count > 0)
@@ -31,7 +31,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
             }
         }
 
-        [MenuItem("Reflectis Worlds/Creator Kit/Visual Scripting/Setup Visual Scripting Nodes")]
+        [MenuItem("Virtuademy Worlds/Creator Kit/Visual Scripting/Setup Visual Scripting Nodes")]
         public static void Setup()
         {
             if (!VSUsageUtility.isVisualScriptingUsed)

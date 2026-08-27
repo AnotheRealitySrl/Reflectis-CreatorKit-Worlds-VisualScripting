@@ -71,7 +71,7 @@ namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
     private bool hasScanned;
     private bool scenesSkipped;
 
-    [MenuItem("Reflectis Worlds/Creator Kit update routines/v2026.4.x -> v2026.5.0")]
+    [MenuItem("Virtuademy Worlds/Creator Kit update routines/v2026.4.x -> v2026.5.0")]
     public static void Open()
     {
       CheckPlatformUnitMobilePortUpdater window = GetWindow<CheckPlatformUnitMobilePortUpdater>(false, WindowTitle, true);
