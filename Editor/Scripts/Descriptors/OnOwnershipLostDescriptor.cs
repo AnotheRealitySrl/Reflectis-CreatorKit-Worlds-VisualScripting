@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [Descriptor(typeof(OnOwnershipLostEventUnit))]
     public class OnOwnershipLostDescriptor : UnitDescriptor<OnOwnershipLostEventUnit>

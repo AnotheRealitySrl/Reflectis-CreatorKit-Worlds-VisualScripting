@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core;
-using Reflectis.SDK.Core.NetworkingSystem;
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.SDK.Core;
+using Virtuademy.SDK.Core.NetworkingSystem;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.VisualScripting;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Networking: On Other Player Left")]
     [UnitSurtitle("Networking")]

@@ -1,7 +1,7 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.VisualScripting;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
     [Descriptor(typeof(SetFirstPersonCameraModeNode))]
     public class SetFirstPersonCameraModeDescriptor : UnitDescriptor<SetFirstPersonCameraModeNode>

@@ -1,6 +1,6 @@
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.VisualScripting;
 
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Character: Pan")]
     [UnitSurtitle("Character")]

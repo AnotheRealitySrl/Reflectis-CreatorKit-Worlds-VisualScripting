@@ -1,9 +1,9 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
+using Virtuademy.SDK.Core.VisualScripting;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 { 
     [UnitTitle("Reflectis ControlManager: On Informative Item Started")]
     [UnitSurtitle("Control Manager")]

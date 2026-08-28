@@ -1,4 +1,4 @@
-﻿using Reflectis.SDK.Core.VisualScripting;
+﻿using Virtuademy.SDK.Core.VisualScripting;
 
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Splines
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Splines
 {
     [UnitTitle("Reflectis SplineAnimate: Play Coroutine")]
     [UnitSurtitle("SplineAnimate")]

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [AddComponentMenu("")]//For hide from add component menu.
     [DisallowMultipleComponent]

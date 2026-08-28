@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Synced Variables: On Synced Variable Init")]
     [UnitSurtitle("Synced Variables Init")]

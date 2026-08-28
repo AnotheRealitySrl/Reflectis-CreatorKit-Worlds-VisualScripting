@@ -1,5 +1,5 @@
-using Reflectis.SDK.Core.Utilities;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.VisualScripting;
 
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis image: Set sprite from URL")]
     [UnitSurtitle("Image")]

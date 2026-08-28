@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityObject = UnityEngine.Object;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
   /// <summary>
   /// Project-wide update routine for <see cref="CheckPlatformUnit"/> ("Reflectis Platform: Switch").

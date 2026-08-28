@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Scene: On Setup Completed")]
     [UnitSurtitle("Scene")]

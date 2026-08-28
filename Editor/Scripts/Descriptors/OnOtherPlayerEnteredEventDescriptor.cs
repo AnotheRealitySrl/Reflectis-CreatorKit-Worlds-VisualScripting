@@ -1,10 +1,10 @@
-using Reflectis.CreatorKit.Worlds.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.VisualScripting;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
     [Descriptor(typeof(OnOtherPlayerEnteredEventNode))]
     public class OnOtherPlayerEnteredEventDescriptor : UnitDescriptor<OnOtherPlayerEnteredEventNode>

@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 
 using UnityEngine.Splines;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Splines
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Splines
 {
     [UnitTitle("Reflectis: Expose SplineContainer")]
     [UnitSurtitle("Expose")]

@@ -1,9 +1,9 @@
-using Reflectis.CreatorKit.Worlds.Core.Localization;
-using Reflectis.CreatorKit.Worlds.Placeholders;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.CreatorKit.Worlds.Core.Localization;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
+using Virtuademy.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Localization: Get translation")]
     [UnitSurtitle("Localization")]

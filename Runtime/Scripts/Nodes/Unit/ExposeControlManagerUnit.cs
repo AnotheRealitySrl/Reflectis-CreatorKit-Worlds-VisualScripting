@@ -1,8 +1,8 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis ControlManager: Expose Control Manager")]
     [UnitSurtitle("Expose")]

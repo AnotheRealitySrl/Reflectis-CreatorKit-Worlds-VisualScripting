@@ -1,10 +1,10 @@
-using Reflectis.CreatorKit.Worlds.Core.Interaction;
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.Core.Interaction;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.VisualScripting;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Visual Scripting Interactable: On Selected Change")]
     [UnitSurtitle("VisualScriptingInteractable")]

@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Splines
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Splines
 {
     [UnitTitle("Reflectis Spline: Get SplineAnimate")]
     [UnitSurtitle("Spline")]

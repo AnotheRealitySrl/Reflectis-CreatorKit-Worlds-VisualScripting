@@ -1,6 +1,6 @@
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core.Fade;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core.Fade;
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Character: Teleport")]
     [UnitSurtitle("Character")]

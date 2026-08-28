@@ -1,7 +1,7 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis ControlManager: Highlight Item with material")]
     [UnitSurtitle("Control Manager")]

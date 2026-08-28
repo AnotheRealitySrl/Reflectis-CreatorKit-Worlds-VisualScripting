@@ -1,11 +1,11 @@
-using Reflectis.CreatorKit.Worlds.Core.ApplicationManagement;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.Core.ApplicationManagement;
+using Virtuademy.SDK.Core.VisualScripting;
 
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Platform: Load Lobby")]
     [UnitSurtitle("Platform")]

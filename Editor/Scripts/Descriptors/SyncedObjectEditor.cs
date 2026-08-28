@@ -1,11 +1,11 @@
 #if UNITY_EDITOR
-using Reflectis.CreatorKit.Worlds.Placeholders.Editor;
+using Virtuademy.CreatorKit.Worlds.Placeholders.Editor;
 
 using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [CustomEditor(typeof(SyncedObject))]
     public class SyncedObjectEditor : NetworkPlaceholderEditor

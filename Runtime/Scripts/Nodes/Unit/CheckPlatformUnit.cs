@@ -1,8 +1,8 @@
-using Reflectis.SDK.Core.ApplicationManagement;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.ApplicationManagement;
+using Virtuademy.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
   [UnitTitle("Reflectis Platform: Switch")]
   [UnitSurtitle("Platform")]

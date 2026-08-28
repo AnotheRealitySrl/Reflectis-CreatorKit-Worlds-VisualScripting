@@ -1,9 +1,9 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
 
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     public class VisualScriptingNetworkEventPlaceholder : SceneComponentPlaceholderNetwork
     {

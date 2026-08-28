@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
     [Descriptor(typeof(OnLanguageChangedEventUnit))]
     public class OnLanguageChangeDescriptor : UnitDescriptor<OnLanguageChangedEventUnit>

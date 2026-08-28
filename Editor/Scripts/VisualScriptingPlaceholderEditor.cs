@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
     [CustomEditor(typeof(VisualScriptingInteractablePlaceholder))]
     public class VisualScriptingPlaceholderEditor : UnityEditor.Editor

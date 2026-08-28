@@ -1,6 +1,6 @@
 {
-    "name": "Reflectis.CreatorKit.Worlds.VisualScripting",
-    "rootNamespace": "Reflectis.CreatorKit.Worlds.VisualScripting",
+    "name": "Virtuademy.CreatorKit.Worlds.VisualScripting",
+    "rootNamespace": "Virtuademy.CreatorKit.Worlds.VisualScripting",
     "references": [
         "GUID:e1e4f83f6c2796445b9ea45a4dca9090",
         "GUID:d144e5d8e92d0bc419736e72debb4e2a",

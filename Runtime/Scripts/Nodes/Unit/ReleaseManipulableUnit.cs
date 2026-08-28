@@ -1,8 +1,8 @@
-using Reflectis.CreatorKit.Worlds.Core.Interaction;
-using Reflectis.CreatorKit.Worlds.Placeholders;
+using Virtuademy.CreatorKit.Worlds.Core.Interaction;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Manipulable: Release Manipulable")]
     [UnitSurtitle("Manipulable")]

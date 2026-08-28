@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.NetworkingSystem;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.NetworkingSystem;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Network: IsMaster")]
     [UnitSurtitle("Reflectis Network")]

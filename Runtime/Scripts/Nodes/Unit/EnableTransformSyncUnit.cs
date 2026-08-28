@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.Networking;
+using Virtuademy.SDK.Core.Networking;
 
 using Unity.VisualScripting;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Transform: EnableSync")]
     [UnitSurtitle("Transform")]

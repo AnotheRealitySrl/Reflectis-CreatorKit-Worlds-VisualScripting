@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using Reflectis.SDK.Core.Editor;
+using Virtuademy.SDK.Core.Editor;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 
 using UnityEditor;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
     public static class VisualScriptingSetupEditor
     {

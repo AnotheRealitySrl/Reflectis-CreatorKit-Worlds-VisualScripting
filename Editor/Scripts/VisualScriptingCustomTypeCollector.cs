@@ -1,12 +1,12 @@
 #if UNITY_EDITOR
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System;
 using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting.Editor
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting.Editor
 {
     [CreateAssetMenu(menuName = "AnotheReality/Editor/VisualScriptingCustomTypeCollector", fileName = "VisualScriptingCustomTypeCollector")]
     public class VisualScriptingCustomTypeCollector : ScriptableObject

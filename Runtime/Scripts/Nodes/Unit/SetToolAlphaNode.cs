@@ -1,8 +1,8 @@
-﻿using Reflectis.CreatorKit.Worlds.Placeholders;
-using Reflectis.SDK.Core.SystemFramework;
+﻿using Virtuademy.CreatorKit.Worlds.Placeholders;
+using Virtuademy.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Tools: Set Alpha")]
     [UnitSurtitle("SetAlpha")]

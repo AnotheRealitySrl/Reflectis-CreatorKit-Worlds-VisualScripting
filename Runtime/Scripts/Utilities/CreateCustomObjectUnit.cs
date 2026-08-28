@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.Utilities;
 
 using System.Collections.Generic;
 using System.Linq;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Custom Object: Create")]
     [UnitSurtitle("Reflectis Custom Object")]

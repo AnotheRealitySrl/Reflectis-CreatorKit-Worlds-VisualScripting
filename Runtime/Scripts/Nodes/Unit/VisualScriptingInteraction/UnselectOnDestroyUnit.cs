@@ -1,9 +1,9 @@
-using Reflectis.CreatorKit.Worlds.Core.Interaction;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.Core.Interaction;
+using Virtuademy.SDK.Core.VisualScripting;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Visual Scripting Interactable: Unselect OnDestroy")]
     [UnitSurtitle("Visual Scripting Interactable")]

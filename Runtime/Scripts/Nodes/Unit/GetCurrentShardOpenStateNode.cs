@@ -1,8 +1,8 @@
-using Reflectis.CreatorKit.Worlds.Core.ClientModels;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.CreatorKit.Worlds.Core.ClientModels;
+using Virtuademy.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Networking: Get Current Shard Open State")]
     [UnitSurtitle("Networking")]

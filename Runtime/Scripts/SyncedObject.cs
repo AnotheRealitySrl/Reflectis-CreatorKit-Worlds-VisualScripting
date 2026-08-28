@@ -1,4 +1,4 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using UnityEditor;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     public class SyncedObject : SceneComponentPlaceholderNetwork
     {

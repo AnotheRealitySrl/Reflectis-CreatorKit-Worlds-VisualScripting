@@ -1,6 +1,6 @@
 {
-    "name": "Reflectis.CreatorKit.Worlds.VisualScripting.Splines",
-    "rootNamespace": "Reflectis.CreatorKit.Worlds.VisualScripting.Splines",
+    "name": "Virtuademy.CreatorKit.Worlds.VisualScripting.Splines",
+    "rootNamespace": "Virtuademy.CreatorKit.Worlds.VisualScripting.Splines",
     "references": [
         "GUID:ab59f74e483e1ee4595bfefea56493f2",
         "GUID:21d1eb854b91ade49bc69a263d12bee2",

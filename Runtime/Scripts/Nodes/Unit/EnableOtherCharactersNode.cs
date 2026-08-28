@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Avatars;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Avatars;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Scene: Enable Other Players")]
     [UnitSurtitle("Scene")]

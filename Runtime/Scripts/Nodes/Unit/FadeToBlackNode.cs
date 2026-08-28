@@ -1,5 +1,5 @@
-using Reflectis.SDK.Core.SystemFramework;
-using Reflectis.SDK.Core.Fade;
+using Virtuademy.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Fade;
 
 using System.Collections;
 
@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Scene: Fade To Black")]
     [UnitSurtitle("Scene")]

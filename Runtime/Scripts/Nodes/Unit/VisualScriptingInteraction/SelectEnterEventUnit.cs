@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Visual Scripting Interactable: On Select Enter")]
     [UnitSurtitle("Visual Scripting Interactable")]

@@ -1,9 +1,9 @@
-using Reflectis.SDK.Core.Avatars;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.Avatars;
+using Virtuademy.SDK.Core.SystemFramework;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis CMUser: Get Character Transform")]
     [UnitSurtitle("Character Transform")]

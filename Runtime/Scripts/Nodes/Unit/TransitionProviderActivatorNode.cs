@@ -1,10 +1,10 @@
-using Reflectis.SDK.Core.Transitions;
+using Virtuademy.SDK.Core.Transitions;
 
 using Unity.VisualScripting;
 
 using UnityEngine;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Transition Provider: Do Transition")]
     [UnitSurtitle("Transition Provider")]

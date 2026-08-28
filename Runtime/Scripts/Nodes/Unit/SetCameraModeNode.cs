@@ -1,16 +1,16 @@
 
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using System.Collections.Generic;
 
 using Unity.VisualScripting;
-using Reflectis.SDK.Core.CharacterController;
-using Reflectis.SDK.Core;
+using Virtuademy.SDK.Core.CharacterController;
+using Virtuademy.SDK.Core;
 using System;
 using System.Reflection;
 using System.Linq;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Camera: Set camera mode")]
     [UnitSurtitle("SetCameraMode")]

@@ -1,12 +1,12 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
-using Reflectis.SDK.Core.SystemFramework;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
+using Virtuademy.SDK.Core.SystemFramework;
 
 using Unity.VisualScripting;
 using UnityEngine;
 
 
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis general: Spawn Feedback (WebGL only)")]
     [UnitSurtitle("General")]

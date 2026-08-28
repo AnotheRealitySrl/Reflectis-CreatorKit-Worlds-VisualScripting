@@ -1,14 +1,14 @@
-using Reflectis.CreatorKit.Worlds.Core.Interaction;
-using Reflectis.CreatorKit.Worlds.Placeholders;
-using Reflectis.SDK.Core.Utilities;
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.CreatorKit.Worlds.Core.Interaction;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
+using Virtuademy.SDK.Core.Utilities;
+using Virtuademy.SDK.Core.VisualScripting;
 
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using static Reflectis.CreatorKit.Worlds.Core.Interaction.IManipulable;
+using static Virtuademy.CreatorKit.Worlds.Core.Interaction.IManipulable;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     public abstract class OnManipulationEventUnit : UnityEventUnit<IManipulable, EManipulableState>
     {

@@ -1,12 +1,12 @@
-using Reflectis.CreatorKit.Worlds.Placeholders;
+using Virtuademy.CreatorKit.Worlds.Placeholders;
 using System;
 
 using Unity.VisualScripting;
 
 using UnityEngine;
-using static Reflectis.CreatorKit.Worlds.Core.Interaction.IVisualScriptingInteractable;
+using static Virtuademy.CreatorKit.Worlds.Core.Interaction.IVisualScriptingInteractable;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     public class VisualScriptingInteractablePlaceholder : InteractionBehaviourPlaceholder
     {

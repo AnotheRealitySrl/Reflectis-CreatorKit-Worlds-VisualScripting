@@ -1,10 +1,10 @@
-using Reflectis.CreatorKit.Worlds.Core.ClientModels;
+using Virtuademy.CreatorKit.Worlds.Core.ClientModels;
 
 using System.Collections.Generic;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Expose: CMUser")]
     [UnitSurtitle("Expose")]

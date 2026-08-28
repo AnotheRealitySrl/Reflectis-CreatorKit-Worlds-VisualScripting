@@ -1,11 +1,11 @@
-using Reflectis.SDK.Core.VisualScripting;
+using Virtuademy.SDK.Core.VisualScripting;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Scene: On Unload")]
     [UnitSurtitle("Scene")]

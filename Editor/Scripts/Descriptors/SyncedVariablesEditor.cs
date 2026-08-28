@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [CustomEditor(typeof(SyncedVariables))]
     public class SyncedVariablesEditor : UnityEditor.Editor

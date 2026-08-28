@@ -1,8 +1,8 @@
-using Reflectis.CreatorKit.Worlds.Core.Interaction;
+using Virtuademy.CreatorKit.Worlds.Core.Interaction;
 
 using Unity.VisualScripting;
 
-namespace Reflectis.CreatorKit.Worlds.VisualScripting
+namespace Virtuademy.CreatorKit.Worlds.VisualScripting
 {
     [UnitTitle("Reflectis Interactable: BlockInteractionBySelection")]
     [UnitSurtitle("Interactable")]
