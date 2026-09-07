@@ -1,5 +1,10 @@
 # Release notes
 
+## v2.4.1
+
+### Fixed
+- PanForcer: the Mobile output of its platform switch was left unconnected when the port was added in 2.4.0, so the PanOnSetup auto-pan never ran on Mobile. Mobile now enters the same branch as WebGL. Before 2.4.0 a mobile Android build fell into the old UNITY_ANDROID fallback and destroyed the PanForcer at scene setup, which killed its ForcePan/ForceDepan entry points too, while iOS took the WebGL branch — Mobile now behaves the same on both. PanManager needs no equivalent change: its switch wires only the VR output, to Destroy, so an unconnected Mobile output already means "keep the pan manager", exactly like WebGL
+
 ## v2.4.0
 
 ### Added
